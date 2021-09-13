@@ -21,6 +21,7 @@ h1 {
   width: 100vw;
   height: 100vh;
 }
+<<<<<<< HEAD
 
 .information {
   padding: 300px;
@@ -35,4 +36,8 @@ h1 {
 #myMap {
   height: 400px;
   background-color: red;
+=======
+.information{
+  padding: 150px;
+>>>>>>> a6cac5013403cfb3415ecaff9330c9c9d866c7f1
 }

@@ -1,14 +1,15 @@
 const router = require("express").Router();
+const bcrypt = require('bcrypt')
 const User = require("../models/User.model")
-
+const { isLoggedIn } = require('./../middleware')
 
 // Ver mi perfil
-router.get('/:id', (req, res) => {
+router.get('/profileview', isLoggedIn, (req, res) => {
     const { id } = req.params
 
     User
         .findById(id)
-        .then(userProfile => res.render('user/profile', { userProfile }))
+        .then(() => res.render('user/profile', { user: req.session.currentUser }))
         .catch(err => console.log(err))
 })
 
@@ -29,14 +30,23 @@ router.post('/:id/edit', (req, res) => {
 
     User
         .findByIdAndUpdate(id, { userName, age, description, profileImage, email }, { new: true })
-        .then(userId => res.redirect('/:id', userId))
+        .then(user => {
+            req.session.currentUser = user
+            res.redirect(`/myprofile/profileview`)
+        })
         .catch(err => console.log(err))
 })
 
 
 // Borrar perfil
 router.post('/:id/delete', (req, res) => {
-    res.send('Gestión de eliminación de mi perfil')
+    const { id } = req.params
+
+    User
+        .findByIdAndRemove(id)
+        .then(() => res.redirect('/'))
+        .catch(err => console.log(err))
+
 })
 
 
