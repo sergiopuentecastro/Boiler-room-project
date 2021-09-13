@@ -1,0 +1,14 @@
+<div class="container">
+
+    <h1 style="font-weight: 100">{{events.title}}</h1>
+
+    <h4>Description</h4>
+    <p>{{events.description}}</p>
+    <img src="{{events.eventImage}}" alt="{{events.title}}">
+    <small><strong>Date: </strong> {{events.time}} | <strong>Capacity: </strong> {{events.capacity}} | <strong>Location: </strong></small>
+    <hr>
+    <form action="/event/{{events._id}}/edit" method="GET" class="col-12 col-sm-6 col-md-4">
+        <button type="submit" class="btn btn-warning">EDIT</button>
+    </form>
+    <a href="/event" class="btn btn-dark">Go back</a>
+</div>

@@ -51,17 +51,13 @@ router.post('/:id/assistantremoved', (req, res) => {
 
 // Editar evento
 router.get('/:id/edit', (req, res) => {
-    res.send('Renderizado de vista de edición de evento')
     const { _id } = req.query
 
     Event
     .findById(_id)
     .then(events => res.render ('event/edit-event'))
+    .catch(err => console.log(err))
 
-    // Book
-    //   .findById(book_id)
-    //   .then(theBook => res.render('books/edit-book-form', theBook))
-    //   .catch(err => console.log(err))
 })
 
 router.post('/:id/edit', (req, res) => {
@@ -71,7 +67,12 @@ router.post('/:id/edit', (req, res) => {
 
 // Eliminar evento
 router.post('/:id/delete', (req, res) => {
-    res.send('Eliminar evento')
+
+    Event 
+    .findByIdAndDelete(req.params.id)
+    .then(() => res.redirect('/event'))
+    .catch(err => console.log('Error', err))
+
 })
 
 
@@ -80,9 +81,18 @@ router.get('/:id/rating', (req, res) => {
     res.send('Edicion de la valoración del evento')
 })
 
+
+
 // Detalles del evento
 router.get('/:id', (req, res) => {
-    res.send('Renderizado de vistas del evento (id)')
+
+    const { id } = req.params
+
+    Event
+    .findById(id)
+    .then(events => res.render('event/details-event', { events } ))
+    .catch((err) => console.error(err))
+
 })
 
 module.exports = router

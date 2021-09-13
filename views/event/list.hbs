@@ -1,17 +1,19 @@
 <div class="container">
     <div class="row">
-        <div class="col-6">
-            {{#each events}}
+        {{#each events}}
+        <div class="col-4">
+            
             <div class="card" style="width: 18rem;">
                 <img src="..." class="card-img-top" alt="...">
                 <div class="card-body">
                     <h5 class="card-title">{{title}}</h5>
                     <p class="card-text">{{description}}</p>
                     <small><strong>Date: </strong> {{date}}m | <strong>Capacity: </strong> {{capacity}} | <strong>Location: </strong></small>
-                    <a href="#" class="btn btn-primary">See more</a>
+                    <a href="/event/{{id}}" class="btn btn-primary">See more</a>
                 </div>
             </div>
-            {{/each}}
+            
         </div>
+        {{/each}}
     </div>
 </div>

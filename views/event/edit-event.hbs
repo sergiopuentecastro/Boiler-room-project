@@ -1,0 +1,42 @@
+<div class="container">
+
+    <div class="row">
+
+        <div class="col-md-6">
+        <h1 style="font-weight: 100">Editar - {{events.title}} </h1>
+        </div>
+
+        <div class="col-md-6">
+
+        <form action="/event/{{events._id}}/edit" method="post">
+            <div class="form-group">
+            <label for="name">Nombre</label>
+            <input name="name" type="text" class="form-control" id="name" value="{{events.title}}">
+            </div>
+            <div class="form-group">
+            <label for="description">Descripción</label>
+            <input name="description" type="text" class="form-control" id="description"
+                value="{{events.description}}">
+            </div>
+            <div class="form-group">
+            <label for="capacity">Capacity</label>
+            <input name="capacity" type="number" class="form-control" id="capacity"
+                value="{{events.capacity}}">
+            </div>
+            <div class="form-group">
+            <label for="ldate">Date</label>
+            <input name="length" type="date" class="form-control" id="time" value="{{events.time}}">
+            </div>
+
+            <button type="submit" class="btn btn-dark">Edit event</button>
+            <a href="/event" class="btn btn-dark">Volver</a>
+
+        </form>
+        </div>
+
+        {{#if errorMsg}}
+        <p>{{errorMsg}}</p>
+        {{/if}}
+
+    </div>
+</div>
