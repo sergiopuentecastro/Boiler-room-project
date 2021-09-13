@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const commentSchema = new mongoose.Schema({
+const commentSchema = new Schema({
 
     title: {
         type: String,
@@ -12,7 +12,6 @@ const commentSchema = new mongoose.Schema({
     },
     time: {
         type: Date,
-        // Se pone fecha y hora?
     },
     author: {
         type: Schema.Types.ObjectId,
@@ -22,7 +21,7 @@ const commentSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: 'Event'
     }
-},{
+}, {
     timestamps: true
 })
 

@@ -1,6 +1,6 @@
 const { Schema, model } = require("mongoose");
 
-const eventSchema = new mongoose.Schema({
+const eventSchema = new Schema({
 
     title: {
         type: String,
@@ -18,7 +18,6 @@ const eventSchema = new mongoose.Schema({
     },
     time: {
         type: Date,
-        // Se pone fecha y hora?
     },
     eventImage: {
         type: String,
@@ -31,17 +30,21 @@ const eventSchema = new mongoose.Schema({
         coordinates: [Number],
     },
     socialMedia: {
-        // Como podemos poner cada red social en donde corresponda?
+        instagramUrl: {
+            type: String
+        },
+        spotifyUrl: {
+            type: String
+        },
+        youtubeUrl: {
+            type: String
+        }
     },
     assistants: [{
         type: Schema.Types.ObjectId,
         ref: 'User'
     }],
-    rating: {
-        type: Number,
-        // Como limitamos el rating? Como sumamos los rating de cada usuario?
-    }
-},{
+}, {
     timestamps: true
 })
 

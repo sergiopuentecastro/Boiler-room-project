@@ -1,111 +1,41 @@
 const router = require("express").Router();
-const bcrypt = require('bcrypt')
 const User = require("../models/User.model")
 
 
-// Registro de usuario
-router.get('/signup', (req, res) => {
-    res.render('auth/signup')
-})
-
-router.post('/signup', (req, res) => {
-    const { userName, email, userPwd, profileImage, age, description } = req.body
-    if (userPwd.length === 0) {
-        res.render('auth/signup', { errorMsg: 'La contraseña es obligatoria' })
-        return
-    }
-    if (userName.length === 0) {
-        res.render('auth/signup', { errorMsg: 'El nombre de usuario es obligatorio' })
-        return
-    }
-    if (email.length === 0) {
-        res.render('auth/signup', { errorMsg: 'El email es obligatorio' })
-        return
-    }
-
-    User
-        .findOne({ email })
-        .then(user => {
-            if (user) {
-                res.render('auth/signup', { errorMsg: 'Usuario ya registrado' })
-                return
-            }
-            const bcryptSalt = 10
-            const salt = bcrypt.genSaltSync(bcryptSalt)
-            const hashPass = bcrypt.hashSync(userPwd, salt)
-
-            User
-                .create({ userName, email, password: hashPass, profileImage, age, description })
-                .then(() => res.redirect('/'))
-                .catch(err => console.log(err))
-        })
-        .catch(err => console.log(err))
-})
-
-
-// Inicio de sesión del usuario
-router.get('/login', (req, res) => {
-    res.render('auth/login')
-})
-
-router.post('/login', (req, res) => {
-    const { userName, userPwd } = req.body
-
-    if (userPwd.length === 0) {
-        res.render('auth/login', { errorMsg: 'Falta la contraseña' })
-        return
-    }
-    if (userName.length === 0) {
-        res.render('auth/login', { errorMsg: 'Rellena el nombre de usuario' })
-        return
-    }
-
-    User
-        .findOne({ userName })
-        .then(user => {
-
-            if (!user) {
-                res.render('auth/login', { errorMsg: 'Usuario no reconocido' })
-                return
-            }
-
-            if (bcrypt.compareSync(userPwd, user.password) === false) {
-                res.render('auth/login', { errorMsg: 'Contraseña incorrecta' })
-                return
-            }
-
-            req.session.currentUser = user
-            res.redirect('/')
-        })
-        .catch(err => console.log(err))
-})
-
-
-// Cerrar sesión
-router.get('/logout', (req, res) => {
-
-    req.session.destroy(() => res.redirect('/'))
-})
-
-
 // Ver mi perfil
-router.get('/myprofile/:id', (req, res) => {
-    res.send('Ver los detalles de mi perfil')
+router.get('/:id', (req, res) => {
+    const { id } = req.params
+
+    User
+        .findById(id)
+        .then(userProfile => res.render('user/profile', { userProfile }))
+        .catch(err => console.log(err))
 })
 
 
 // Editar mi perfil
-router.get('/myprofile/:id/edit', (req, res) => {
-    res.send('Edito mi propio perfil')
+router.get('/:id/edit', (req, res) => {
+    const { id } = req.params
+
+    User
+        .findById(id)
+        .then(userProfile => res.render('user/edit-profile', { userProfile }))
+        .catch(err => console.log(err))
 })
 
-router.post('/myprofile/:id/edit', (req, res) => {
-    res.send('Gestion de la edición de mi perfil')
+router.post('/:id/edit', (req, res) => {
+    const { id } = req.params
+    const { userName, age, description, profileImage, email } = req.body
+
+    User
+        .findByIdAndUpdate(id, { userName, age, description, profileImage, email }, { new: true })
+        .then(() => res.redirect('/:id'))
+        .catch(err => console.log(err))
 })
 
 
 // Borrar perfil
-router.post('/myprofile/:id/delete', (req, res) => {
+router.post('/:id/delete', (req, res) => {
     res.send('Gestión de eliminación de mi perfil')
 })
 

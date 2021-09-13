@@ -13,34 +13,33 @@ const userSchema = new Schema({
   },
   age: {
     type: Number,
-    min: 1,
-    max: 10,
+    min: 18,
+    max: 120,
   },
   description: {
     type: String,
     maxlength: 280,
-    // Si no ponen nada sale null?
   },
   profileImage: {
     type: String,
     required: true,
-    default: '', // Meter imagen obligatoria
+    default: './../images/daniel-schludi-mbGxz7pt0jM-unsplash.jpeg',
   },
   role: {
     type: String,
+    required: true,
     enum: ['US', 'PR', 'AD'],
     default: 'US',
   },
   email: {
     type: String,
-    // trim: true,
+    trim: true,
     unique: true,
     required: [true, 'Email address is required'],
     match: /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,63})$/,
   },
   password: {
     type: String,
-    minlength: 5,
   }
 }, {
   timestamps: true

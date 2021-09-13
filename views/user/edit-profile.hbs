@@ -1,0 +1,46 @@
+<div class="container">
+
+
+    <div class="row justify-content-center">
+
+        <div class="col-md-4">
+
+            <h1 class="row justify-content-center">Editar perfil</h1>
+            <br>
+            <hr>
+            <br>
+
+            <form action="/myprofile/{{userProfile.id}}/edit" method="POST">
+                <div class="form-group">
+                    <label for="userName">Nombre</label>
+                    <input type="text" class="form-control" id="userName" name="userName"
+                        value="{{userProfile.userName}}">
+                </div>
+                <div class="form-group">
+                    <label for="email">Dirección de Email</label>
+                    <input type="text" class="form-control" id="email" name="email" value="{{userProfile.email}}">
+                </div>
+                <div class="form-group">
+                    <label for="img">Imagen de perfil</label>
+                    <input type="file" class="form-control" id="img" name="profileImage"
+                        value="{{userProfile.profileImage}}">
+                </div>
+                <div class="form-group">
+                    <label for="age">Edad</label>
+                    <input type="number" class="form-control" id="age" name="age" value="{{userProfile.age}}">
+                </div>
+                <div class="form-group">
+                    <label for="description">Descripción</label>
+                    <input type="text" class="form-control" id="description" name="description"
+                        value="{{userProfile.description}}">
+                </div>
+
+                <button type="submit" class="btn btn-dark btn-block">Guardar</button>
+            </form>
+
+            <hr>
+        </div>
+    </div>
+
+
+</div>
