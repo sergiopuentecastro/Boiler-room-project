@@ -1,50 +1,41 @@
 const router = require("express").Router();
-
-
-// Registro de usuario
-router.get('/signup', (req, res) => {
-    res.send('Renderizado de página de registro')
-})
-
-router.post('/signup', (req, res) => {
-    res.send('Gestión de resgistro de usuario')
-})
-
-
-// Inicio de sesión del usuario
-router.get('/login', (req, res) => {
-    res.send('Renderizado de página de incio de sesión')
-})
-
-router.post('/login', (req, res) => {
-    res.send('Gestión de incio de sesión')
-})
-
-
-// Cerrar sesión
-router.get('/logout', (req, res) => {
-    res.send('Cerrar sesión')
-})
+const User = require("../models/User.model")
 
 
 // Ver mi perfil
-router.get('/myprofile/:id', (req, res) => {
-    res.send('Ver los detalles de mi perfil')
+router.get('/:id', (req, res) => {
+    const { id } = req.params
+
+    User
+        .findById(id)
+        .then(userProfile => res.render('user/profile', { userProfile }))
+        .catch(err => console.log(err))
 })
 
 
 // Editar mi perfil
-router.get('/myprofile/:id/edit', (req, res) => {
-    res.send('Edito mi propio perfil')
+router.get('/:id/edit', (req, res) => {
+    const { id } = req.params
+
+    User
+        .findById(id)
+        .then(userProfile => res.render('user/edit-profile', { userProfile }))
+        .catch(err => console.log(err))
 })
 
-router.post('/myprofile/:id/edit', (req, res) => {
-    res.send('Gestion de la edición de mi perfil')
+router.post('/:id/edit', (req, res) => {
+    const { id } = req.params
+    const { userName, age, description, profileImage, email } = req.body
+
+    User
+        .findByIdAndUpdate(id, { userName, age, description, profileImage, email }, { new: true })
+        .then(userId => res.redirect('/:id', userId))
+        .catch(err => console.log(err))
 })
 
 
 // Borrar perfil
-router.post('/myprofile/:id/delete', (req, res) => {
+router.post('/:id/delete', (req, res) => {
     res.send('Gestión de eliminación de mi perfil')
 })
 

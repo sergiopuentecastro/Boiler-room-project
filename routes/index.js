@@ -1,8 +1,9 @@
 module.exports = app => {
 
-  app.use('/', require('./base.routes.js'))
-  app.use('/', require('./user.routes.js'))
-  app.use('/event', require('./event.routes.js'))
-  app.use('/comment', require('./comment.routes.js'))
+  app.use('/', require('./base.routes'))
+  app.use('/', require('./auth.routes'))
+  app.use('/myprofile', require('./user.routes'))
+  app.use('/event', require('./event.routes'))
+  app.use('/comment', require('./comment.routes'))
 
 }

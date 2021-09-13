@@ -9,6 +9,7 @@ const hbs = require("hbs");
 const app = express();
 
 require("./config")(app);
+require("./config/session.config")(app)
 
 const projectName = "second-project";
 const capitalized = (string) => string[0].toUpperCase() + string.slice(1).toLowerCase();
