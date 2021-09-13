@@ -11,7 +11,7 @@ h1 {
 }
 
 .title-init {
-  position: fixed;
+  position: absolute;
   color: white;
   padding: 350px;
 }
@@ -19,4 +19,7 @@ h1 {
 .image-init {
   width: 100vw;
   height: 100vh;
+}
+.information{
+  padding: 150px;
 }
