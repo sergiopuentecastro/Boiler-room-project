@@ -29,7 +29,7 @@ router.post('/:id/edit', (req, res) => {
 
     User
         .findByIdAndUpdate(id, { userName, age, description, profileImage, email }, { new: true })
-        .then(() => res.redirect('/:id'))
+        .then(userId => res.redirect('/:id', userId))
         .catch(err => console.log(err))
 })
 
