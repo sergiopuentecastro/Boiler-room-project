@@ -1,6 +1,6 @@
 const router = require("express").Router()
 
-router.get("/", (req, res, next) => res.send("index"))
+router.get("/", (req, res, next) => res.render("index"))
 
 router.get('/contact', (req, res) => res.send('Nuestro contacto'))
 
