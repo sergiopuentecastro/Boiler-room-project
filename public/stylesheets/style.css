@@ -1,5 +1,4 @@
 body {
-  padding: 50px;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -9,4 +8,15 @@ a {
 
 h1 {
   color: 15px;
+}
+
+.title-init {
+  position: fixed;
+  color: white;
+  padding: 350px;
+}
+
+.image-init {
+  width: 100vw;
+  height: 100vh;
 }
