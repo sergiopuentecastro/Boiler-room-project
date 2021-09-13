@@ -22,10 +22,6 @@ h1 {
   height: 100vh;
 }
 
-.information {
-  padding: 300px;
-}
-
 .image-carad {
   width: 100px;
   height: 100px;
@@ -36,3 +32,15 @@ h1 {
   height: 400px;
   background-color: red;
 }
+
+footer {
+  padding: 150px;
+  margin-inline-start: 10%;
+  margin-inline-end: 10% ;
+  justify-content: center;
+}
+
+.list {
+  margin: 100px;
+}
+
