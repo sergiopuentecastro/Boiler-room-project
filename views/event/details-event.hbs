@@ -1,14 +1,28 @@
 <div class="container">
-
-    <h1 style="font-weight: 100">{{events.title}}</h1>
-
-    <h4>Description</h4>
-    <p>{{events.description}}</p>
-    <img src="{{events.eventImage}}" alt="{{events.title}}">
-    <small><strong>Date: </strong> {{events.time}} | <strong>Capacity: </strong> {{events.capacity}} | <strong>Location: </strong></small>
+    <div class="row">
+        <h1 style="font-weight: 100">{{events.title}}</h1>
+        <div class="col-6">
+            <img src="{{events.eventImage}}" alt="{{events.title}}" class="img-thumbnail">
+        </div>
+        <div class="col-6">
+            <p>{{events.description}}</p>
+            <small><strong>Date: </strong> {{events.time}} | <strong>Capacity: </strong> {{events.capacity}} |
+                <strong>Location: </strong></small>
+            <hr>
+            <form action="/event/{{events._id}}/edit" method="GET" class="col-12 col-sm-6 col-md-4">
+                <button type="submit" class="btn btn-warning">EDIT</button>
+            </form>
+            <a href="/event" class="btn btn-dark">Go back</a>
+        </div>
+    </div>
     <hr>
-    <form action="/event/{{events._id}}/edit" method="GET" class="col-12 col-sm-6 col-md-4">
-        <button type="submit" class="btn btn-warning">EDIT</button>
-    </form>
-    <a href="/event" class="btn btn-dark">Go back</a>
+    <figure id="myMap"></figure>
+
+    <script src="/js/mapStyles.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/js/place-map-setup.js"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoajqXibWJz4sOq2ROb_U-8TdlpWx_Cds&callback=initMap"></script>
+
+    <a href="/comment/new" class="btn btn-dark">Escribir reseña</a>
 </div>

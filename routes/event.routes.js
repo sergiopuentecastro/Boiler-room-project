@@ -51,17 +51,25 @@ router.post('/:id/assistantremoved', (req, res) => {
 
 // Editar evento
 router.get('/:id/edit', (req, res) => {
-    const { _id } = req.query
+    const { id } = req.params
 
     Event
-    .findById(_id)
-    .then(events => res.render ('event/edit-event'))
+    .findById(id)
+    .then(events => res.render ('event/edit-event', { events }))
     .catch(err => console.log(err))
 
 })
 
 router.post('/:id/edit', (req, res) => {
-    res.send('Gestión de edición de evento')
+
+    const { id } = req.params
+    const { title, description, capacity, time, eventImage, socialMedia } = req.body
+
+    Event
+    .findByIdAndUpdate(id, { title, description, capacity, time, eventImage, socialMedia }, {new: true} )
+    .then(events => res.redirect (`/event/${events.id}`))
+    .catch(err => console.log('Error', err))
+
 })
 
 

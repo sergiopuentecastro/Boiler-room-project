@@ -5,5 +5,6 @@ module.exports = app => {
   app.use('/myprofile', require('./user.routes'))
   app.use('/event', require('./event.routes'))
   app.use('/comment', require('./comment.routes'))
+  app.use('/api', require('./api.routes'))
 
 }

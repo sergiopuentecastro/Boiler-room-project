@@ -1,4 +1,5 @@
 body {
+  /* background-color: #3B3A3A; */
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -11,7 +12,7 @@ h1 {
 }
 
 .title-init {
-  position: fixed;
+  position: absolute;
   color: white;
   padding: 350px;
 }
@@ -19,4 +20,19 @@ h1 {
 .image-init {
   width: 100vw;
   height: 100vh;
+}
+
+.information {
+  padding: 300px;
+}
+
+.image-carad {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+}
+
+#myMap {
+  height: 400px;
+  background-color: red;
 }
