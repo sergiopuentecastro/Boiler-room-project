@@ -10,7 +10,7 @@ router.get('/new', (req, res) => {
     Comment
         .find()
         .then((comments) => {
-            res.render('comment/new-comment', { comments })
+            res.redirect(`events/${id}`, { comments })
         })
         .catch((err) => console.error(err))
 })
