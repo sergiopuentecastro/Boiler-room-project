@@ -17,40 +17,53 @@ router.get('/new', (req, res) => {
 
 router.post('/new', (req, res) => {
 
-    const { title, description, time } = req.body
+    const { title, description } = req.body
 
     Comment
         .create({ title, description, time }, { user: req.body.user._id })
         .then((comments) => {
             Comment
-                .findById()
+                .findById(comments.id)
+                .populate('user')
+                .then(comments => res.render('/event/:id', { comments }))
         })
+        .catch(error => console.log(error))
 })
 
-
-
-// .then(purchase => {
-//     Purchase.findById(purchase._id)
-//         .populate('album')
-//         .populate('user')
-//         .then(purchase => res.json({ data: purchase }))
-// })
-// .catch(error => console.log(error))
 
 
 // Edición de comentarios
 router.get('/:id/edit', (req, res) => {
-    res.send('Renderizado de vista de edición comentario')
+
+
+    const { id } = req.params
+
+    Comment
+        .findById(id)
+        .then(events => res.render(`/event/${events.id}`, { events }))
+        .catch(err => console.log(err))
+
 })
 
 router.post('/:id/edit', (req, res) => {
-    res.send('Gestión de edición comentario')
+
+    const { id } = req.params
+    const { title, description } = req.body
+
+    Comment
+        .findByIdAndUpdate(id, { title, description }, { new: true })
+        .then(events => res.redirect(`/event/${events.id}`))
+        .catch(err => console.log('Error', err))
 })
 
 
 // Eliminacion de comentarios
 router.post('/:id/delete', (req, res) => {
-    res.send('Eliminación de comentarios')
+
+    Comment
+        .findByIdAndDelete(req.params.id)
+        .then(() => res.redirect(`/event/${events.id}`))
+        .catch(err => console.log('Error', err))
 })
 
 
