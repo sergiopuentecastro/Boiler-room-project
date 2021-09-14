@@ -30,10 +30,16 @@ router.get('/new', (req, res) => {
 
 router.post('/new', (req, res) => {
 
-    const { title, description, capacity, time, eventImage, socialMedia } = req.body
+    const { title, description, capacity, time, eventImage, socialMedia, lat, lng } = req.body
+
+    const address = {
+        type: 'Point',
+        coordinates: [lat, lng]
+    }
+
 
     Event
-        .create({ title, description, capacity, time, eventImage, socialMedia })
+        .create({ title, description, capacity, time, eventImage, socialMedia, address })
         .then(() => res.redirect('/event'))
         .catch((err) => console.log(err))
 
@@ -65,10 +71,10 @@ router.get('/:id/edit', (req, res) => {
 router.post('/:id/edit', (req, res) => {
 
     const { id } = req.params
-    const { title, description, capacity, time, eventImage, socialMedia } = req.body
+    const { title, description, capacity, time, eventImage, socialMedia, address } = req.body
 
     Event
-        .findByIdAndUpdate(id, { title, description, capacity, time, eventImage, socialMedia }, { new: true })
+        .findByIdAndUpdate(id, { title, description, capacity, time, eventImage, socialMedia, address }, { new: true })
         .then(events => res.redirect(`/event/${events.id}`))
         .catch(err => console.log('Error', err))
 

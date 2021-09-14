@@ -5,17 +5,17 @@
             <img src="{{event.eventImage}}" alt="{{event.title}}" class="img-thumbnail">
         </div>
         <div class="col-6">
-            <p>{{event.description}}</p>
-            <small><strong>Fecha: </strong> {{event.time}} | <strong>Capacidad: </strong> {{event.capacity}} |
-                <strong>Localización: </strong></small>
-            <hr>
-            <form action="/event/{{event._id}}/edit" method="GET" class="col-12 col-sm-6 col-md-4">
-                <button type="submit" class="btn btn-warning">Editar</button>
-            </form>
-            <form action="/event/{{event._id}}/delete" method="POST" class="col-12 col-sm-6 col-md-4">
-                <button type="submit" class="btn btn-danger">Eliminar</button>
-            </form>
-            <a href="/event" class="btn btn-dark">Volver</a>
+            <p>{{events.description}}</p>
+            <small><strong>Date: </strong> {{events.time}} | <strong>Capacity: </strong> {{events.capacity}} |
+                <strong>Latitude: </strong>
+                <p name="lat" id="latitude">{{events.address.coordinates.[0]}}</p>
+                <strong>Longitude: </strong>
+                <p name="lng" id="longitude">{{events.address.coordinates.[1]}}</p>
+
+                <form action="/event/{{events._id}}/edit" method="GET" class="col-12 col-sm-6 col-md-4">
+                    <button type="submit" class="btn btn-warning">EDIT</button>
+                </form>
+                <a href="/event" class="btn btn-dark">Go back</a>
         </div>
     </div>
     <hr>
@@ -84,7 +84,7 @@
 
     <script src="/js/mapStyles.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="/js/place-map-setup.js"></script>
+    <script src="/js/drawMap.js"></script>
     <script
         src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoajqXibWJz4sOq2ROb_U-8TdlpWx_Cds&callback=initMap"></script>
 
