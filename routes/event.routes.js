@@ -1,5 +1,7 @@
-const router = require("express").Router();
-const Event = require('../models/Event.model');
+const router = require("express").Router()
+const Event = require('../models/Event.model')
+const Comment = require('../models/Comment.model')
+const User = require('../models/User.model')
 
 
 // Vista de los eventos
@@ -81,9 +83,10 @@ router.post('/:id/edit', (req, res) => {
 
 // Eliminar evento
 router.post('/:id/delete', (req, res) => {
+    const { id } = req.params
 
     Event
-        .findByIdAndDelete(req.params.id)
+        .findByIdAndDelete(id)
         .then(() => res.redirect('/event'))
         .catch(err => console.log('Error', err))
 
@@ -101,12 +104,20 @@ router.get('/:id/rating', (req, res) => {
 router.get('/:id', (req, res) => {
 
     const { id } = req.params
+    let event = {}
+
+    !id && res.send('No tengo ID')
 
     Event
         .findById(id)
-        .then(events => res.render('event/details-event', { events }))
-        .catch((err) => console.error(err))
-
+        .then(events => {
+            event = events;
+            return Comment.find({ event: id })
+        })
+        .then(comment => res.render('event/details-event', { event, comment }))
+        .catch(err => console.log('Error', err))
 })
+
+
 
 module.exports = router

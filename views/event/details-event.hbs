@@ -1,8 +1,8 @@
 <div class="container">
     <div class="row">
-        <h1 style="font-weight: 100">{{events.title}}</h1>
+        <h1 style="font-weight: 100">{{event.title}}</h1>
         <div class="col-6">
-            <img src="{{events.eventImage}}" alt="{{events.title}}" class="img-thumbnail">
+            <img src="{{event.eventImage}}" alt="{{event.title}}" class="img-thumbnail">
         </div>
         <div class="col-6">
             <p>{{events.description}}</p>
@@ -20,19 +20,66 @@
     </div>
     <hr>
     <figure id="myMap"></figure>
+    <form action="" method="POST">
+        <select name="" id="">
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
+    </form>
 
     <a id="commnet-btn" class="btn btn-dark btn-open-review">Escribir reseña</a>
 
     <div id="comment" class="container-all">
 
-        <form action="/commnet/new" method="POST">
+        <form action="/comment/new" method="POST">
             <label for="title">Título</label>
             <input type="text" class="form-control" id="title" name="title">
+
             <label for="description">Descripción</label>
             <input type="text" class="form-control" id="description" name="description">
+
+            <input type="text" hidden name="event" value="{{event._id}}">
+
             <button type="submit" class="btn btn-dark">Enviar</button>
             <button class="btn btn-dark hideForm">Volver</button>
         </form>
+    </div>
+
+    <div>
+        <ul>
+            {{#each comment}}
+            <li>
+                <p>{{title}}</p>
+                <p>{{description}}</p>
+
+                <a class="btn btn-dark btn-open-review edit-comment-btn">Editar reseña</a>
+
+                <div class="editForm">
+
+                    <form action="/comment/{{_id}}/edit" method="POST">
+                        <label for="title">Título</label>
+                        <input type="text" class="form-control" id="title" name="title" value="{{title}}">
+
+                        <label for="description">Descripción</label>
+                        <input type="text" class="form-control" id="description" name="description"
+                            value="{{description}}">
+
+                        <input type="text" hidden name="event" value="{{event._id}}">
+
+                        <button type="submit" class="btn btn-dark">Guardar</button>
+                        <button class="btn btn-dark hide-edit-form">Volver</button>
+                    </form>
+                    <form action="/comment/{{_id}}/delete" method="POST" class="col-12 col-sm-6 col-md-4">
+                        <button type="submit" class="btn btn-danger">Eliminar</button>
+                    </form>
+
+                </div>
+            </li>
+            {{/each}}
+        </ul>
     </div>
 
     <script src="/js/mapStyles.js"></script>
