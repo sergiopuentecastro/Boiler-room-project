@@ -4,7 +4,7 @@ document.addEventListener(
     console.log("second-project JS imported successfully!");
   },
   false
-);
+)
 
 document.querySelector('#commnet-btn').addEventListener('click', () => {
   document.querySelector('#comment').classList.add('visible')
