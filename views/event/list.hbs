@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container list">
     <div class="row">
         {{#each events}}
         <div class="col-6">
@@ -7,7 +7,8 @@
                 <div class="card-body">
                     <h5 class="card-title">{{title}}</h5>
                     <p class="card-text">{{description}}</p>
-                    <small><strong>Date: </strong> {{date}} | <strong>Capacity: </strong> {{capacity}} | <strong>Location: </strong></small>
+                    <small><strong>Date: </strong> {{date}} | <strong>Capacity: </strong> {{capacity}} |
+                        <strong>Location: </strong></small>
                     <a href="/event/{{id}}" class="btn btn-primary">See more</a>
                 </div>
             </div>
