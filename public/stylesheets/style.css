@@ -73,3 +73,9 @@ footer {
 .visible{
   visibility: visible;
 }
+
+.map {
+  border:1px solid #ccc;
+  background-color: #efefef;
+  height: 300px;
+}

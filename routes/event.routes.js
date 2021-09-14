@@ -6,11 +6,11 @@ const Event = require('../models/Event.model');
 router.get('/', (req, res) => {
 
     Event
-    .find()
-    .then((events) => {
-        res.render('event/list', { events })
-    })
-    .catch((err) => console.error(err))
+        .find()
+        .then((events) => {
+            res.render('event/list', { events })
+        })
+        .catch((err) => console.error(err))
 
 })
 
@@ -19,21 +19,27 @@ router.get('/', (req, res) => {
 router.get('/new', (req, res) => {
 
     Event
-    .find()
-    .then((events) => {
-        res.render('event/new-event', { events })
-    })
-    .catch((err) => console.error(err))
+        .find()
+        .then((events) => {
+            res.render('event/new-event', { events })
+        })
+        .catch((err) => console.error(err))
 })
 
 router.post('/new', (req, res) => {
 
-    const { title, description, capacity, time, eventImage, socialMedia } = req.body
+    const { title, description, capacity, time, eventImage, socialMedia, lat, lng } = req.body
+
+    const address = {
+        type: 'Point',
+        coordinates: [lat, lng]
+    }
+
 
     Event
-    .create( { title, description, capacity, time, eventImage, socialMedia } )
-    .then(() => res.redirect ('/event'))
-    .catch((err) => console.log(err))
+        .create({ title, description, capacity, time, eventImage, socialMedia, address })
+        .then(() => res.redirect('/event'))
+        .catch((err) => console.log(err))
 
 })
 
@@ -54,21 +60,21 @@ router.get('/:id/edit', (req, res) => {
     const { id } = req.params
 
     Event
-    .findById(id)
-    .then(events => res.render ('event/edit-event', { events }))
-    .catch(err => console.log(err))
+        .findById(id)
+        .then(events => res.render('event/edit-event', { events }))
+        .catch(err => console.log(err))
 
 })
 
 router.post('/:id/edit', (req, res) => {
 
     const { id } = req.params
-    const { title, description, capacity, time, eventImage, socialMedia } = req.body
+    const { title, description, capacity, time, eventImage, socialMedia, address } = req.body
 
     Event
-    .findByIdAndUpdate(id, { title, description, capacity, time, eventImage, socialMedia }, {new: true} )
-    .then(events => res.redirect (`/event/${events.id}`))
-    .catch(err => console.log('Error', err))
+        .findByIdAndUpdate(id, { title, description, capacity, time, eventImage, socialMedia, address }, { new: true })
+        .then(events => res.redirect(`/event/${events.id}`))
+        .catch(err => console.log('Error', err))
 
 })
 
@@ -76,10 +82,10 @@ router.post('/:id/edit', (req, res) => {
 // Eliminar evento
 router.post('/:id/delete', (req, res) => {
 
-    Event 
-    .findByIdAndDelete(req.params.id)
-    .then(() => res.redirect('/event'))
-    .catch(err => console.log('Error', err))
+    Event
+        .findByIdAndDelete(req.params.id)
+        .then(() => res.redirect('/event'))
+        .catch(err => console.log('Error', err))
 
 })
 
@@ -97,9 +103,9 @@ router.get('/:id', (req, res) => {
     const { id } = req.params
 
     Event
-    .findById(id)
-    .then(events => res.render('event/details-event', { events } ))
-    .catch((err) => console.error(err))
+        .findById(id)
+        .then(events => res.render('event/details-event', { events }))
+        .catch((err) => console.error(err))
 
 })
 

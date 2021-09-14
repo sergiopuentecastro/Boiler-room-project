@@ -30,9 +30,22 @@
                     <input name="eventImage" type="text" class="form-control" id="eventImage">
                 </div>
                 <div class="form-group">
-                    <label for="location">Localización</label>
-                    <input name="location" type="text" class="form-control" id="location">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <label for="address">Address</label>
+                            <input id="address" type="text" value="Madrid, SPAIN" />
+                            <input type="text" name="lat" id="location-lat">
+                            <input type="text" name="lng" id="location-lng">
+                            <button type="button" id="submit" name="address">Locate!</button>
+                            <p id="error-msg"></p>
+                        </div>
+                        <div class="col-md-6">
+                            <div id="map-canvas"></div>
+                        </div>
+                    </div>
                 </div>
+                <figure id="myMap"></figure>
+
                 <button type="submit" class="btn btn-dark">Create event</button>
                 <a href="/event" class="btn btn-dark">Go back</a>
 
@@ -40,18 +53,9 @@
         </div>
 
     </div>
+    <script src="/js/mapStyles.js"></script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="/js/place-map-setup.js"></script>
+    <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoajqXibWJz4sOq2ROb_U-8TdlpWx_Cds&callback=initMap"></script>
 </div>
-
-{{!--
-<script src="assets/js/jquery-2.1.0.min.js"></script>
-<script>
-    $(document).ready(function () {
-        $(window).on("load resize", function () {
-            var alturaBuscador = $(".buscador").outerHeight(true),
-                alturaVentana = $(window).height(),
-                alturaMapa = alturaVentana - alturaBuscador;
-
-            $("#mapa-geocoder").css("height", alturaMapa + "px");
-        });
-    }); --}}
-</script>

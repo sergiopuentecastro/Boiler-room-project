@@ -6,11 +6,11 @@ document.addEventListener(
   false
 );
 
-document.querySelector('#commnet-btn').addEventListener('click', () => {
-  document.querySelector('#comment').classList.add('visible')
-})
+// document.querySelector('#commnet-btn').addEventListener('click', () => {
+//   document.querySelector('#comment').classList.add('visible')
+// })
 
-document.querySelector('.hideForm').addEventListener('click', event => {
-  event.preventDefault()
-  document.querySelector('#comment').classList.remove('visible')
-})
+// document.querySelector('.hideForm').addEventListener('click', event => {
+//   event.preventDefault()
+//   document.querySelector('#comment').classList.remove('visible')
+// })

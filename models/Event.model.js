@@ -23,11 +23,11 @@ const eventSchema = new Schema({
         type: String,
         required: true,
     },
-    location: {
+    address: {
         type: {
             type: String
         },
-        coordinates: [Number],
+        coordinates: [Number]
     },
     socialMedia: {
         instagramUrl: {
