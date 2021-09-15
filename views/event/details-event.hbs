@@ -11,13 +11,14 @@
                 <p name="lat" id="latitude">{{event.address.coordinates.[0]}}</p>
                 <strong>Longitude: </strong>
                 <p name="lng" id="longitude">{{event.address.coordinates.[1]}}</p>
-                <p name="rate">Valoración:</p>
+                <p name="rate">Valoración: {{avg}}
                 <form action="/event/{{event._id}}/edit" method="GET" class="col-12 col-sm-6 col-md-4">
                     <button type="submit" class="btn btn-warning">EDIT</button>
                 </form>
                 <a href="/event" class="btn btn-dark">Go back</a>
         </div>
     </div>
+
     <hr>
     <figure id="myMap"></figure>
     <form action="/rating/new" method="POST">

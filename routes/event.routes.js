@@ -2,6 +2,8 @@ const router = require("express").Router()
 const Event = require('../models/Event.model')
 const Comment = require('../models/Comment.model')
 const User = require('../models/User.model')
+const Rating = require('../models/Rating.model')
+const { average } = require('../utils/index')
 
 
 // Vista de los eventos
@@ -111,16 +113,28 @@ router.get('/:id', (req, res) => {
 
     const { id } = req.params
     let event = {}
-
-    !id && res.send('No tengo ID')
+    let comment = {}
 
     Event
         .findById(id)
         .then(events => {
-            event = events;
+            event = events
             return Comment.find({ event: id })
+
         })
-        .then(comment => res.render('event/details-event', { event, comment }))
+        .then(comments => {
+            comment = comments
+            return Rating.find({ event: id })
+        })
+        .then(rating => {
+            let ratings = []
+            rating.forEach(elm => {
+                ratings.push(elm.rate)
+            })
+            let avg = Math.round(average(ratings))
+            res.render('event/details-event', { event, comment, avg })
+        })
+
         .catch(err => console.log('Error', err))
 })
 
