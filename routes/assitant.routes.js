@@ -7,9 +7,16 @@ const User = require('../models/User.model')
 router.post('/assistant', (req, res) => {
     const { event } = req.body
 
-    Event
-        .findByIdAndUpdate(event,)
-    console.log('=======================>', event)
+    Event.findOne({ _id: event, assistants: req.session.currentUser._id })
+        .then(e => {
+            if (e) {
+                // res.redirect(`/event/${event}`)
+                return
+            }
+
+            return Event
+                .findByIdAndUpdate(event, { $push: { assistants: req.session.currentUser._id } })
+        })
         .then(() => res.redirect(`/event/${event}`))
         .catch(error => console.log(error))
 })
