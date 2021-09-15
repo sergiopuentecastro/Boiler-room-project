@@ -1,6 +1,6 @@
 <div class="container list">
     <div class="row">
-        {{#each events}}
+        {{!-- {{#each events}}
         <div class="col-6">
             <div class="card" style="width: 18rem;">
                 <img src="{{eventImage}}" class="card-img-top" alt="{{title}}">
@@ -13,6 +13,26 @@
                 </div>
             </div>
         </div>
-        {{/each}}
+
+    </div> --}}
+    {{#each events}}
+    <div class="col-md-4 bio-card">
+        <img src="{{eventImage}}" class="card-img-top" alt="{{title}}">
+        <div>
+            <h2>{{title}}</h2>
+            <h4>EVENT MUSIC</h4>
+            <h4>Distance &amp; Continuing Dancing</h4>
+            <h5><strong>Capacity: </strong> {{capacity}}</h5>
+            <h5><strong>Date: </strong> {{date}}</h5>
+            <div class="tab">
+                <div class="tab-content">
+                    <p>{{description}}</p>
+                    <a href="/event/{{id}}" class="btn text-danger">See More</a>
+                </div>
+                <br>
+                <hr>
+            </div>
+        </div>
     </div>
+    {{/each}}
 </div>

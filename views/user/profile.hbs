@@ -1,3 +1,11 @@
-<p>perfil de {{user.userName}}</p>
-
-<a href="/myprofile/{{user._id}}/edit">Edita tu perfil</a>
+<div class="container d-flex justify-content-center profile">
+    <div class="row">
+        <div class="col-12">
+            <img src="{{user.profileImage}}" alt="{{user.userName}}">
+            <h1>{{user.userName}}</h1>
+            <hr>
+            <p><strong>Edad:</strong> {{user.age}}</p>
+            <p><strong>Descripción:</strong> {{user.description}}</p>
+        </div>
+    </div>
+</div>

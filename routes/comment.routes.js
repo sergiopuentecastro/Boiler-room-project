@@ -23,6 +23,7 @@ router.post('/:id/edit', (req, res) => {
     Comment
         .findByIdAndUpdate(id, { title, description, author: req.session.currentUser.id, event }, { new: true })
         .then(() => res.redirect(`/event/${event}`))
+        //.then((com) => res.json(com))
         .catch(err => console.log(err))
 })
 

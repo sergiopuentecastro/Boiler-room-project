@@ -5,14 +5,14 @@
             <img src="{{event.eventImage}}" alt="{{event.title}}" class="img-thumbnail">
         </div>
         <div class="col-6">
-            <p>{{events.description}}</p>
-            <small><strong>Date: </strong> {{events.time}} | <strong>Capacity: </strong> {{events.capacity}} |
+            <p>{{event.description}}</p>
+            <small><strong>Date: </strong> {{event.time}} | <strong>Capacity: </strong> {{event.capacity}} |
                 <strong>Latitude: </strong>
-                <p name="lat" id="latitude">{{events.address.coordinates.[0]}}</p>
+                <p name="lat" id="latitude">{{event.address.coordinates.[0]}}</p>
                 <strong>Longitude: </strong>
-                <p name="lng" id="longitude">{{events.address.coordinates.[1]}}</p>
+                <p name="lng" id="longitude">{{event.address.coordinates.[1]}}</p>
 
-                <form action="/event/{{events._id}}/edit" method="GET" class="col-12 col-sm-6 col-md-4">
+                <form action="/event/{{event._id}}/edit" method="GET" class="col-12 col-sm-6 col-md-4">
                     <button type="submit" class="btn btn-warning">EDIT</button>
                 </form>
                 <a href="/event" class="btn btn-dark">Go back</a>

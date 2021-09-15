@@ -44,6 +44,10 @@ h1 {
   height: 100vh;
 }
 
+.information a {
+  
+}
+
 .image-carad {
   width: 100px;
   height: 100px;
@@ -83,4 +87,10 @@ footer {
   border:1px solid #ccc;
   background-color: #efefef;
   height: 300px;
+}
+
+.profile {
+  padding-top: 100px;
+  width: 300px;
+  height: 100vh;
 }

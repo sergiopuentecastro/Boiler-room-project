@@ -30,7 +30,7 @@ router.get('/new', (req, res) => {
 
 router.post('/new', (req, res) => {
 
-    const { title, description, capacity, time, eventImage, socialMedia, lat, lng } = req.body
+    const { title, description, capacity, time, eventImage, socialMedia, lat, lng, assistants } = req.body
 
     const address = {
         type: 'Point',
@@ -39,22 +39,23 @@ router.post('/new', (req, res) => {
 
 
     Event
-        .create({ title, description, capacity, time, eventImage, socialMedia, address })
+        .create({ title, description, capacity, time, eventImage, socialMedia, address, assistants })
         .then(() => res.redirect('/event'))
         .catch((err) => console.log(err))
 
 })
 
 
-
 // Asistencia del evento
 router.post('/:id/assistant', (req, res) => {
-    res.send('Modificación de asistencia del evento')
+
 })
 
 router.post('/:id/assistantremoved', (req, res) => {
     res.send('Eliminación de asistencia del evento')
 })
+
+
 
 
 // Editar evento
@@ -71,7 +72,12 @@ router.get('/:id/edit', (req, res) => {
 router.post('/:id/edit', (req, res) => {
 
     const { id } = req.params
-    const { title, description, capacity, time, eventImage, socialMedia, address } = req.body
+    const { title, description, capacity, time, eventImage, socialMedia, lat, lng } = req.body
+
+    const address = {
+        type: 'Point',
+        coordinates: [lat, lng]
+    }
 
     Event
         .findByIdAndUpdate(id, { title, description, capacity, time, eventImage, socialMedia, address }, { new: true })
