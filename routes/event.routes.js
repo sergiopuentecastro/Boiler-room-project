@@ -12,14 +12,13 @@ router.get('/', (req, res) => {
 
     Event
         .find()
-        // .select('title capacity time eventImage')
+        .select('title capacity time eventImage')
         .then(events => {
             res.render('event/list', { events, isLogged: req.session.currentUser })
         })
         .catch((err) => console.error(err))
 
 })
-
 
 
 // Creación de eventos
@@ -33,7 +32,7 @@ router.get('/new', isLoggedIn, checkRoles('PR'), (req, res) => {
 
 router.post('/new', checkRoles('PR'), (req, res) => {
 
-    const { title, description, capacity, time, eventImage, socialMedia, lat, lng, assistants } = req.body
+    const { title, description, capacity, time, eventImage, instagramUrl, spotifyUrl, youtubeUrl, lat, lng, assistants } = req.body
 
     const address = {
         type: 'Point',
@@ -42,15 +41,14 @@ router.post('/new', checkRoles('PR'), (req, res) => {
 
 
     Event
-        .create({ title, description, capacity, time, eventImage, socialMedia, address, assistants })
+        .create({ title, description, capacity, time, eventImage, address, socialMedia: { instagramUrl, spotifyUrl, youtubeUrl }, assistants })
         .then(() => res.redirect('/event'))
         .catch((err) => console.log(err))
 
 })
 
 
-
-// Editar evento
+// Editar eventot
 router.get('/:id/edit', isLoggedIn, checkRoles('PR'), (req, res) => {
     const { id } = req.params
 
@@ -79,7 +77,6 @@ router.post('/:id/edit', isLoggedIn, checkRoles('PR'), (req, res) => {
 })
 
 
-
 // Eliminar evento
 router.post('/:id/delete', isLoggedIn, checkRoles('PR', 'AD'), (req, res) => {
     const { id } = req.params
@@ -90,7 +87,6 @@ router.post('/:id/delete', isLoggedIn, checkRoles('PR', 'AD'), (req, res) => {
         .catch(err => console.log('Error', err))
 
 })
-
 
 
 //Detalles del evento

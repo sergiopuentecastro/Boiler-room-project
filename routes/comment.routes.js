@@ -7,6 +7,9 @@ const User = require('../models/User.model')
 router.post('/new', (req, res) => {
 
     const { title, description, event } = req.body
+    if (title.length === 0) {
+        res.render(`/event/${event._id}`, { errorMsg: 'Título obligatorio' })
+    }
 
     Comment
         .create({ title, description, author: req.session.currentUser._id, event })

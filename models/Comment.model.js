@@ -6,6 +6,7 @@ const commentSchema = new Schema({
         type: String,
         required: true,
         trim: true,
+        default: 'titulo'
     },
     description: {
         type: String,
