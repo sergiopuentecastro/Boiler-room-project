@@ -8,9 +8,12 @@ router.post('/assistant', (req, res) => {
     const { event } = req.body
 
     Event
-        .findByIdAndUpdate(event,)
+        .findByIdAndUpdate(event)
     console.log('=======================>', event)
-        .then(() => res.redirect(`/event/${event}`))
+        .then(() => {
+            event.assistants.push
+            res.redirect(`/event/${event._id}`)
+        })
         .catch(error => console.log(error))
 })
 

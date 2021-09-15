@@ -23,7 +23,7 @@ const userSchema = new Schema({
   profileImage: {
     type: String,
     required: true,
-    default: './../images/daniel-schludi-mbGxz7pt0jM-unsplash.jpeg',
+    default: './images/daniel-schludi-mbGxz7pt0jM-unsplash.jpeg',
   },
   role: {
     type: String,
