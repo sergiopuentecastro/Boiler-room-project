@@ -11,7 +11,7 @@ router.post('/new', (req, res) => {
     Rating
 
         .create({ rate, author: req.session.currentUser._id, event })
-        .then((rates) => res.redirect(`/event/${event}`, { rates }))
+        .then(() => res.redirect(`/event/${event}`))
         .catch(error => console.log(error))
 })
 
