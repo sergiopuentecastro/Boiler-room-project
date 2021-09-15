@@ -1,28 +1,27 @@
 <div class="container">
     <div class="row">
-        <h1 style="font-weight: 100">{{event.title}}</h1>
+        <h1 style="font-weight: 100">{{response.0.title}}</h1>
         <div class="col-6">
-            <img src="{{event.eventImage}}" alt="{{event.title}}" class="img-thumbnail">
+            <img src="{{response.0.eventImage}}" alt="{{response.0.title}}" class="img-thumbnail">
         </div>
         <div class="col-6">
-            <p>{{event.description}}</p>
-            <small><strong>Date: </strong> {{event.time}} | <strong>Capacity: </strong> {{event.capacity}} |
+            <p>{{response.0.description}}</p>
+            <small><strong>Date: </strong> {{response.0.time}} | <strong>Capacity: </strong> {{response.0.capacity}} |
                 <strong>Latitude: </strong>
-                <p name="lat" id="latitude">{{event.address.coordinates.[0]}}</p>
+                <p name="lat" id="latitude">{{response.0.address.coordinates.[0]}}</p>
                 <strong>Longitude: </strong>
-                <p name="lng" id="longitude">{{event.address.coordinates.[1]}}</p>
+                <p name="lng" id="longitude">{{response.0.address.coordinates.[1]}}</p>
                 <p name="rate">Valoración: {{avg}}
-                <form action="/event/{{event._id}}/edit" method="GET" class="col-12 col-sm-6 col-md-4">
+                <form action="/event/{{response.0._id}}/edit" method="GET" class="col-12 col-sm-6 col-md-4">
                     <button type="submit" class="btn btn-warning">EDIT</button>
                 </form>
                 <a href="/event" class="btn btn-dark">Go back</a>
                 <form action="/assistant" method="POST" class="col-12 col-sm-6 col-md-4">
-                    <button type="submit" class="btn btn-warning" id="buton-assistant">ASISTENCIA</button>
-                    <input type="text" hidden name="event" value="{{event._id}}">
+                    <button type="submit" class="btn btn-warning">ASISTENCIA</button>
+                    <input type="text" hidden name="event" value="{{response.0._id}}">
                 </form>
         </div>
     </div>
-
     <hr>
     <figure id="myMap"></figure>
     <form action="/rating/new" method="POST">
@@ -34,7 +33,7 @@
             <option value="5">5</option>
         </select>
         <button type="submit" class="btn btn-dark">Valorar</button>
-        <input type="text" hidden name="event" value="{{event._id}}">
+        <input type="text" hidden name="event" value="{{response.0._id}}">
     </form>
 
     <a id="commnet-btn" class="btn btn-dark btn-open-review">Escribir reseña</a>
@@ -48,7 +47,7 @@
             <label for="description">Descripción</label>
             <input type="text" class="form-control" id="description" name="description">
 
-            <input type="text" hidden name="event" value="{{event._id}}">
+            <input type="text" hidden name="event" value="{{response.0._id}}">
 
             <button type="submit" class="btn btn-dark">Enviar</button>
             <button class="btn btn-dark hideForm">Volver</button>
@@ -57,7 +56,7 @@
 
     <div>
         <ul>
-            {{#each comment}}
+            {{#each response.[1]}}
             <li>
                 <p>{{title}}</p>
                 <p>{{description}}</p>
