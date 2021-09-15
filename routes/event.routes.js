@@ -11,7 +11,8 @@ router.get('/', (req, res) => {
 
     Event
         .find()
-        .then((events) => {
+        // .select('title capacity time eventImage')
+        .then(events => {
             res.render('event/list', { events })
         })
         .catch((err) => console.error(err))
@@ -47,13 +48,6 @@ router.post('/new', (req, res) => {
 
 })
 
-
-// Asistencia del evento
-
-
-
-
-
 // Editar evento
 router.get('/:id/edit', (req, res) => {
     const { id } = req.params
@@ -88,50 +82,29 @@ router.post('/:id/delete', (req, res) => {
     const { id } = req.params
 
     Event
-        .findByIdAndDelete(id)
+        .findByIdAndRemove(id)
         .then(() => res.redirect('/event'))
         .catch(err => console.log('Error', err))
 
 })
 
-
-// Valoración del evento
-router.get('/:id/rating', (req, res) => {
-    res.send('Edicion de la valoración del evento')
-})
-
-
-
-// Detalles del evento
+//Detalles del evento
 router.get('/:id', (req, res) => {
 
     const { id } = req.params
-    let event = {}
-    let comment = {}
+    const event = Event.findById(id)
+    const comments = Comment.find({ event: id })
+    const ratings = Rating.find({ event: id })
 
-    Event
-        .findById(id)
-        .then(events => {
-            event = events
-            return Comment.find({ event: id })
+    Promise
+        .all([event, comments, ratings])
+        .then(response => {
+
+            let avg = Math.round(average(response[2].map(elm => elm.rate)))
+            res.render('event/details-event', { response, avg })
 
         })
-        .then(comments => {
-            comment = comments
-            return Rating.find({ event: id })
-        })
-        .then(rating => {
-            let ratings = []
-            rating.forEach(elm => {
-                ratings.push(elm.rate)
-            })
-            let avg = Math.round(average(ratings))
-            res.render('event/details-event', { event, comment, avg })
-        })
-
         .catch(err => console.log('Error', err))
 })
-
-
 
 module.exports = router

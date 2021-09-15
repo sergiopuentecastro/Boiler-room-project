@@ -9,7 +9,7 @@ router.get('/profileview', isLoggedIn, (req, res) => {
 
     User
         .findById(id)
-        .select('userName', 'description', 'profileImage')
+        .select('userName description profileImage')
         .then(() => res.render('user/profile', { user: req.session.currentUser }))
         .catch(err => console.log(err))
 })
