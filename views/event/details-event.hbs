@@ -12,9 +12,11 @@
                 <strong>Longitude: </strong>
                 <p name="lng" id="longitude">{{response.0.address.coordinates.[1]}}</p>
                 <p name="rate">Valoración: {{avg}}
+                    {{#if producerOrAdmin}}
                 <form action="/event/{{response.0._id}}/edit" method="GET" class="col-12 col-sm-6 col-md-4">
                     <button type="submit" class="btn btn-warning">EDIT</button>
                 </form>
+                {{/if}}
                 <a href="/event" class="btn btn-dark">Go back</a>
                 <form action="/assistant" method="POST" class="col-12 col-sm-6 col-md-4">
                     <button type="submit" class="btn btn-warning">ASISTENCIA</button>
