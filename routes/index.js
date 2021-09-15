@@ -7,5 +7,5 @@ module.exports = app => {
   app.use('/comment', require('./comment.routes'))
   app.use('/api', require('./api.routes'))
   app.use('/rating', require('./rating.routes'))
-
+  app.use('/', require('./assitant.routes'))
 }

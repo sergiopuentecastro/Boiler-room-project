@@ -47,13 +47,7 @@ router.post('/new', (req, res) => {
 
 
 // Asistencia del evento
-router.post('/:id/assistant', (req, res) => {
 
-})
-
-router.post('/:id/assistantremoved', (req, res) => {
-    res.send('Eliminación de asistencia del evento')
-})
 
 
 
