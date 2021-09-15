@@ -16,6 +16,10 @@
                     <button type="submit" class="btn btn-warning">EDIT</button>
                 </form>
                 <a href="/event" class="btn btn-dark">Go back</a>
+                <form action="/assistant" method="POST" class="col-12 col-sm-6 col-md-4">
+                    <button type="submit" class="btn btn-warning">ASISTENCIA</button>
+                    <input type="text" hidden name="event" value="{{event._id}}">
+                </form>
         </div>
     </div>
 
