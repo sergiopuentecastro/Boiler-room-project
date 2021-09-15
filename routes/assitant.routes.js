@@ -10,7 +10,6 @@ router.post('/assistant', (req, res) => {
     Event.findOne({ _id: event, assistants: req.session.currentUser._id })
         .then(e => {
             if (e) {
-                document.querySelector("#buton-assistant").classList.add('btn-danger')
                 return
             }
 
