@@ -9,7 +9,7 @@ router.post('/new', (req, res) => {
     const { title, description, event } = req.body
 
     Comment
-        .create({ title, description, author: req.session.currentUser.id, event })
+        .create({ title, description, author: req.session.currentUser._id, event })
         .then(() => res.redirect(`/event/${event}`))
         .catch(error => console.log(error))
 })
@@ -21,9 +21,8 @@ router.post('/:id/edit', (req, res) => {
     const { title, description, event } = req.body
 
     Comment
-        .findByIdAndUpdate(id, { title, description, author: req.session.currentUser.id, event }, { new: true })
-        .then(() => res.redirect(`/event/${event}`))
-        //.then((com) => res.json(com))
+        .findByIdAndUpdate(id, { title, description, author: req.session.currentUser._id, event }, { new: true })
+        .then(e => res.redirect(`/event/${event}`))
         .catch(err => console.log(err))
 })
 

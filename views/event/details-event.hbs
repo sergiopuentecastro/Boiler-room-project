@@ -11,7 +11,7 @@
                 <p name="lat" id="latitude">{{event.address.coordinates.[0]}}</p>
                 <strong>Longitude: </strong>
                 <p name="lng" id="longitude">{{event.address.coordinates.[1]}}</p>
-
+                <p name="rate">Valoración:</p>
                 <form action="/event/{{event._id}}/edit" method="GET" class="col-12 col-sm-6 col-md-4">
                     <button type="submit" class="btn btn-warning">EDIT</button>
                 </form>
@@ -20,14 +20,16 @@
     </div>
     <hr>
     <figure id="myMap"></figure>
-    <form action="" method="POST">
-        <select name="" id="">
+    <form action="/rating/new" method="POST">
+        <select name="rate" id="rate">
             <option value="1">1</option>
             <option value="2">2</option>
             <option value="3">3</option>
             <option value="4">4</option>
             <option value="5">5</option>
         </select>
+        <button type="submit" class="btn btn-dark">Valorar</button>
+        <input type="text" hidden name="event" value="{{event._id}}">
     </form>
 
     <a id="commnet-btn" class="btn btn-dark btn-open-review">Escribir reseña</a>

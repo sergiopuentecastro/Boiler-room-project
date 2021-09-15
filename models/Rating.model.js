@@ -1,8 +1,12 @@
 const { Schema, model } = require("mongoose");
 
 const ratingSchema = new Schema({
-
-    type: Number,
+    rate: {
+        type: Number,
+        required: true,
+        min: 1,
+        max: 5
+    },
     author: {
         type: Schema.Types.ObjectId,
         ref: 'User'
