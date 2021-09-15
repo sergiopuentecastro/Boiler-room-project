@@ -3,6 +3,7 @@ const bcrypt = require('bcrypt')
 const User = require("../models/User.model")
 const { isLoggedIn } = require('./../middleware')
 
+
 // Ver mi perfil
 router.get('/profileview', isLoggedIn, (req, res) => {
     const { id } = req.params
@@ -16,16 +17,16 @@ router.get('/profileview', isLoggedIn, (req, res) => {
 
 
 // Editar mi perfil
-router.get('/:id/edit', (req, res) => {
+router.get('/:id/edit', isLoggedIn, (req, res) => {
     const { id } = req.params
 
     User
         .findById(id)
-        .then(userProfile => res.render('user/edit-profile', { userProfile }))
+        .then(() => res.render('user/edit-profile', { user: req.session.currentUser }))
         .catch(err => console.log(err))
 })
 
-router.post('/:id/edit', (req, res) => {
+router.post('/:id/edit', isLoggedIn, (req, res) => {
     const { id } = req.params
     const { userName, age, description, profileImage, email } = req.body
 
@@ -33,21 +34,28 @@ router.post('/:id/edit', (req, res) => {
         .findByIdAndUpdate(id, { userName, age, description, profileImage, email }, { new: true })
         .then(user => {
             req.session.currentUser = user
-            res.redirect(`/myprofile/profileview`)
+            res.redirect('/myprofile/profileview')
         })
         .catch(err => console.log(err))
 })
 
 
 // Borrar perfil
-router.post('/:id/delete', (req, res) => {
+router.post('/:id/delete', isLoggedIn, (req, res) => {
     const { id } = req.params
-
     User
         .findByIdAndRemove(id)
-        .then(() => res.redirect('/'))
+        .then(() => req.session.destroy(() => res.redirect('/')))
         .catch(err => console.log(err))
 
+})
+
+router.get('/:id/close', isLoggedIn, (req, res) => {
+    const { id } = req.params
+    User
+        .findById(id)
+        .then(() => req.session.destroy(() => res.redirect('/')))
+        .catch(err => console.log(err))
 })
 
 

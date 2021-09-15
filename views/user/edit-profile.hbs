@@ -9,36 +9,33 @@
             <br>
             <hr>
             <br>
-
-            <form action="/myprofile/{{userProfile.id}}/edit" method="POST">
+            <form action="/myprofile/{{user._id}}/edit" method="POST">
                 <div class="form-group">
                     <label for="userName">Nombre</label>
-                    <input type="text" class="form-control" id="userName" name="userName"
-                        value="{{userProfile.userName}}">
+                    <input type="text" class="form-control" id="userName" name="userName" value="{{user.userName}}">
                 </div>
                 <div class="form-group">
                     <label for="email">Dirección de Email</label>
-                    <input type="text" class="form-control" id="email" name="email" value="{{userProfile.email}}">
+                    <input type="text" class="form-control" id="email" name="email" value="{{user.email}}">
                 </div>
                 <div class="form-group">
                     <label for="img">Imagen de perfil</label>
-                    <input type="file" class="form-control" id="img" name="profileImage"
-                        value="{{userProfile.profileImage}}">
+                    <input type="file" class="form-control" id="img" name="profileImage" value="{{user.profileImage}}">
                 </div>
                 <div class="form-group">
                     <label for="age">Edad</label>
-                    <input type="number" class="form-control" id="age" name="age" value="{{userProfile.age}}">
+                    <input type="number" class="form-control" id="age" name="age" value="{{user.age}}">
                 </div>
                 <div class="form-group">
                     <label for="description">Descripción</label>
                     <input type="text" class="form-control" id="description" name="description"
-                        value="{{userProfile.description}}">
+                        value="{{user.description}}">
                 </div>
 
                 <button type="submit" class="btn btn-dark btn-block">Guardar</button>
             </form>
 
-            <form action="/myprofile/{{userProfile.id}}/delete">
+            <form action="/myprofile/{{user._id}}/delete" method="POST">
                 <button type="submit" class="btn btn-warning back-button">Eliminar</button>
             </form>
 
