@@ -3,7 +3,7 @@ const Event = require('../models/Event.model')
 const Comment = require('../models/Comment.model')
 const User = require('../models/User.model')
 const Rating = require('../models/Rating.model')
-const { average } = require('../utils/index')
+const { average, producerOrAdmin } = require('../utils/index')
 const { checkId, isLoggedIn, checkRoles } = require("../middleware")
 
 
@@ -22,15 +22,15 @@ router.get('/', (req, res) => {
 
 
 // Creación de eventos
-router.get('/new', isLoggedIn, checkRoles('PR'), (req, res) => {
+router.get('/new', isLoggedIn, checkRoles('PR', 'AD'), (req, res) => {
 
     Event
         .find()
-        .then((events) => res.render('event/new-event', { events, isLogged: req.session.currentUser, isPR: req.session.currentUser?.role === 'PR' }))
+        .then((events) => res.render('event/new-event', { events, isLogged: req.session.currentUser, producerOrAdmin: producerOrAdmin(req) }))
         .catch((err) => console.error(err))
 })
 
-router.post('/new', checkRoles('PR'), (req, res) => {
+router.post('/new', checkRoles('PR', 'AD'), (req, res) => {
 
     const { title, description, capacity, time, eventImage, instagramUrl, spotifyUrl, youtubeUrl, lat, lng, assistants } = req.body
 
@@ -48,8 +48,9 @@ router.post('/new', checkRoles('PR'), (req, res) => {
 })
 
 
-// Editar eventot
-router.get('/:id/edit', isLoggedIn, checkRoles('PR'), (req, res) => {
+
+// Editar evento
+router.get('/:id/edit', isLoggedIn, checkRoles('PR', 'AD'), (req, res) => {
     const { id } = req.params
 
     Event
@@ -59,7 +60,7 @@ router.get('/:id/edit', isLoggedIn, checkRoles('PR'), (req, res) => {
 
 })
 
-router.post('/:id/edit', isLoggedIn, checkRoles('PR'), (req, res) => {
+router.post('/:id/edit', isLoggedIn, checkRoles('PR', 'AD'), (req, res) => {
 
     const { id } = req.params
     const { title, description, capacity, time, eventImage, socialMedia, lat, lng } = req.body
@@ -101,7 +102,7 @@ router.get('/:id', isLoggedIn, checkRoles('US', 'PR', 'AD'), (req, res) => {
         .all([event, comments, ratings])
         .then(response => {
             let avg = Math.round(average(response[2].map(elm => elm.rate)))
-            res.render('event/details-event', { response, avg, })
+            res.render('event/details-event', { response, avg, producerOrAdmin: producerOrAdmin(req) })
         })
         .catch(err => console.log('Error', err))
 })

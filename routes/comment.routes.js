@@ -37,10 +37,7 @@ router.post('/:id/delete', (req, res) => {
 
     Comment
         .findByIdAndRemove(id)
-        .then(event => {
-            console.log(event);
-            res.redirect(`/event/${event.event}`)
-        })
+        .then(event => res.redirect(`/event/${event.event}`))
         .catch(err => console.log('Error', err))
 })
 

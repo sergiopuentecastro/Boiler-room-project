@@ -9,5 +9,12 @@ module.exports = {
         let avg = sum / array.length
 
         return avg
+    },
+    producerOrAdmin: (req) => {
+        let isPr = req.session.currentUser?.role === 'PR'
+        let isAd = req.session.currentUser?.role === 'AD'
+        if (isPr || isAd) {
+            return true
+        }
     }
 }

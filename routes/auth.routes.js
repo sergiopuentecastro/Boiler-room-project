@@ -75,6 +75,8 @@ router.post('/login', (req, res) => {
             }
 
             req.session.currentUser = user
+            req.app.locals.isLogged = req.session.currentUser
+            if (user.role === 'PR' || user.role === 'AD') req.app.locals.producerOrAd = true
             res.redirect('/')
         })
         .catch(err => console.log(err))
@@ -83,8 +85,8 @@ router.post('/login', (req, res) => {
 
 // Cerrar sesión
 router.get('/logout', (req, res) => {
-
     req.session.destroy(() => res.redirect('/'))
+    req.app.locals.isLogged = false
 })
 
 module.exports = router;
