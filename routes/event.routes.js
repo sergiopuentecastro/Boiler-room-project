@@ -4,6 +4,7 @@ const Comment = require('../models/Comment.model')
 const User = require('../models/User.model')
 const Rating = require('../models/Rating.model')
 const { average } = require('../utils/index')
+const { checkId, isLoggedIn, checkRoles } = require("../middleware")
 
 
 // Vista de los eventos
@@ -21,17 +22,15 @@ router.get('/', (req, res) => {
 
 
 // Creación de eventos
-router.get('/new', (req, res) => {
+router.get('/new', isLoggedIn, checkRoles('PR'), (req, res) => {
 
     Event
         .find()
-        .then((events) => {
-            res.render('event/new-event', { events })
-        })
+        .then((events) => res.render('event/new-event', { events, isLogged: req.session.currentUser, isPR: req.session.currentUser?.role === 'PR' }))
         .catch((err) => console.error(err))
 })
 
-router.post('/new', (req, res) => {
+router.post('/new', checkRoles('PR'), (req, res) => {
 
     const { title, description, capacity, time, eventImage, socialMedia, lat, lng, assistants } = req.body
 
@@ -49,7 +48,7 @@ router.post('/new', (req, res) => {
 })
 
 // Editar evento
-router.get('/:id/edit', (req, res) => {
+router.get('/:id/edit', isLoggedIn, checkRoles('PR'), (req, res) => {
     const { id } = req.params
 
     Event
@@ -59,7 +58,7 @@ router.get('/:id/edit', (req, res) => {
 
 })
 
-router.post('/:id/edit', (req, res) => {
+router.post('/:id/edit', isLoggedIn, checkRoles('PR'), (req, res) => {
 
     const { id } = req.params
     const { title, description, capacity, time, eventImage, socialMedia, lat, lng } = req.body
@@ -78,7 +77,7 @@ router.post('/:id/edit', (req, res) => {
 
 
 // Eliminar evento
-router.post('/:id/delete', (req, res) => {
+router.post('/:id/delete', isLoggedIn, checkRoles('PR', 'AD'), (req, res) => {
     const { id } = req.params
 
     Event
@@ -89,7 +88,7 @@ router.post('/:id/delete', (req, res) => {
 })
 
 //Detalles del evento
-router.get('/:id', (req, res) => {
+router.get('/:id', isLoggedIn, checkRoles('US', 'PR', 'AD'), (req, res) => {
 
     const { id } = req.params
     const event = Event.findById(id)
@@ -101,7 +100,7 @@ router.get('/:id', (req, res) => {
         .then(response => {
 
             let avg = Math.round(average(response[2].map(elm => elm.rate)))
-            res.render('event/details-event', { response, avg })
+            res.render('event/details-event', { response, avg, isLogged: req.session.currentUser })
 
         })
         .catch(err => console.log('Error', err))
