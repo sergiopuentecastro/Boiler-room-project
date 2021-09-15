@@ -14,11 +14,12 @@ router.get('/', (req, res) => {
         .find()
         // .select('title capacity time eventImage')
         .then(events => {
-            res.render('event/list', { events })
+            res.render('event/list', { events, isLogged: req.session.currentUser })
         })
         .catch((err) => console.error(err))
 
 })
+
 
 
 // Creación de eventos
@@ -46,6 +47,8 @@ router.post('/new', checkRoles('PR'), (req, res) => {
         .catch((err) => console.log(err))
 
 })
+
+
 
 // Editar evento
 router.get('/:id/edit', isLoggedIn, checkRoles('PR'), (req, res) => {
@@ -76,6 +79,7 @@ router.post('/:id/edit', isLoggedIn, checkRoles('PR'), (req, res) => {
 })
 
 
+
 // Eliminar evento
 router.post('/:id/delete', isLoggedIn, checkRoles('PR', 'AD'), (req, res) => {
     const { id } = req.params
@@ -86,6 +90,8 @@ router.post('/:id/delete', isLoggedIn, checkRoles('PR', 'AD'), (req, res) => {
         .catch(err => console.log('Error', err))
 
 })
+
+
 
 //Detalles del evento
 router.get('/:id', isLoggedIn, checkRoles('US', 'PR', 'AD'), (req, res) => {
@@ -98,10 +104,8 @@ router.get('/:id', isLoggedIn, checkRoles('US', 'PR', 'AD'), (req, res) => {
     Promise
         .all([event, comments, ratings])
         .then(response => {
-
             let avg = Math.round(average(response[2].map(elm => elm.rate)))
-            res.render('event/details-event', { response, avg, isLogged: req.session.currentUser })
-
+            res.render('event/details-event', { response, avg, })
         })
         .catch(err => console.log('Error', err))
 })
