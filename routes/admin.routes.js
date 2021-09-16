@@ -5,15 +5,36 @@ const { checkId, isLoggedIn, checkRoles } = require("../middleware")
 
 
 
-// Ver todos los Usuarios
+// Buscar usuarios(renderizado)
+router.get('/users-search', isLoggedIn, checkRoles('AD'), (req, res) => res.render('admin/user-list'))
 
-router.get('/users-list', isLoggedIn, checkRoles('AD'), (req, res) => {
+
+// Buscar usuarios (gestión)
+router.post('/users-search', isLoggedIn, checkRoles('AD'), (req, res) => {
+
+    const { userName } = req.body
 
     User
-        .find()
-        .then(users => res.render('admin/user-list', { users }))
+        .findOne({ userName })
+        .then(user => {
+            console.log(user)
+            res.render('admin/user-list', { user })
+        })
         .catch(error => console.log(error))
 })
+
+//Perfil de Usuario
+router.get('/user-profile/:id', isLoggedIn, checkRoles('AD'), (req, res) => {
+    const { id } = req.params
+    User
+        .findById(id)
+        .then(user => res.render('admin/user-profile', { user }))
+        .catch(error => console.log(error))
+})
+
+
+
+
 
 
 // Eliminar usuarios
@@ -23,19 +44,19 @@ router.post('/:id/user-delete', isLoggedIn, checkRoles('AD'), (req, res) => {
 
     User
         .findByIdAndRemove(id)
-        .then(() => res.redirect('/admin/users-list'))
+        .then(() => res.redirect('/admin/users-search'))
         .catch(error => console.log(error))
 
 })
 
 // Cambiar roles de usuarios
-router.post('/:id/chage-role', isLoggedIn, checkRoles('AD'), (req, res) => {
+router.post('/:id/change-role', isLoggedIn, checkRoles('AD'), (req, res) => {
     const { id } = req.params
     const { role } = req.body
 
     User
         .findByIdAndUpdate(id, { role }, { new: true })
-        .then(() => res.redirect('/admin/users-list'))
+        .then(() => res.redirect(`/admin/user-profile/${id}`))
         .catch(error => console.log(error))
 })
 
