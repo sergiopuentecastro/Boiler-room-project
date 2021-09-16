@@ -87,6 +87,9 @@
                 </div>
             </li>
             {{/each}}
+            {{#if ../errorMsg}}
+            <p id="errorMessage">{{errorMsg}}</p>
+            {{/if}}
         </ul>
     </div>
 

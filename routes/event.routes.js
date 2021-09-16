@@ -12,14 +12,13 @@ router.get('/', (req, res) => {
 
     Event
         .find()
-        // .select('title capacity time eventImage')
+        .select('title capacity time eventImage')
         .then(events => {
             res.render('event/list', { events, isLogged: req.session.currentUser })
         })
         .catch((err) => console.error(err))
 
 })
-
 
 
 // Creación de eventos
@@ -79,7 +78,6 @@ router.post('/:id/edit', isLoggedIn, checkRoles('PR', 'AD'), (req, res) => {
 })
 
 
-
 // Eliminar evento
 router.post('/:id/delete', isLoggedIn, checkRoles('PR', 'AD'), (req, res) => {
     const { id } = req.params
@@ -90,7 +88,6 @@ router.post('/:id/delete', isLoggedIn, checkRoles('PR', 'AD'), (req, res) => {
         .catch(err => console.log('Error', err))
 
 })
-
 
 
 //Detalles del evento
