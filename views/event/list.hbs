@@ -1,41 +1,24 @@
 <div class="container list">
     <div class="row">
-        {{!-- {{#each events}}
-        <div class="col-6">
-            <div class="card" style="width: 18rem;">
-                <img src="{{eventImage}}" class="card-img-top" alt="{{title}}">
-                <div class="card-body">
-                    <h5 class="card-title">{{title}}</h5>
-                    <p class="card-text">{{description}}</p>
-                    <small><strong>Date: </strong> {{date}} | <strong>Capacity: </strong> {{capacity}} |
-                        <strong>Location: </strong></small>
-                    <a href="/event/{{id}}" class="btn btn-primary">See more</a>
+        {{#each events}}
+        <div class="col-md-4 bio-card">
+            <img src="{{eventImage}}" class="card-img-top" alt="{{title}}">
+            <div>
+                <h2>{{title}}</h2>
+
+                <h5><strong>Fecha: </strong> {{time}}</h5>
+                <p><strong>Dirección:</strong> {{address.direction}}</p>
+                <div class="tab">
+                    <div class="tab-content">
+
+                        {{#if ../isLogged}}
+                        <a href="/event/{{id}}" class="btn text-danger">Ver detalles</a>
+                        {{/if}}
+                    </div>
+                    <br>
+                    <hr>
                 </div>
             </div>
         </div>
-
-    </div> --}}
-    {{#each events}}
-    <div class="col-md-4 bio-card">
-        <img src="{{eventImage}}" class="card-img-top" alt="{{title}}">
-        <div>
-            <h2>{{title}}</h2>
-            <h4>EVENT MUSIC</h4>
-            <h4>Distance &amp; Continuing Dancing</h4>
-            <h5><strong>Capacity: </strong> {{capacity}}</h5>
-            <h5><strong>Date: </strong> {{time}}</h5>
-            <div class="tab">
-                <div class="tab-content">
-                    <p>{{description}}</p>
-
-                    {{#if ../isLogged}}
-                    <a href="/event/{{id}}" class="btn text-danger">See More</a>
-                    {{/if}}
-                </div>
-                <br>
-                <hr>
-            </div>
-        </div>
+        {{/each}}
     </div>
-    {{/each}}
-</div>

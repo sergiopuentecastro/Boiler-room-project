@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 
     Event
         .find()
-        .select('title capacity time eventImage')
+        .select('title capacity time eventImage address')
         .then(events => {
             res.render('event/list', { events, isLogged: req.session.currentUser })
         })
