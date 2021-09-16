@@ -23,7 +23,6 @@ module.exports = {
         if (isAdmin) {
             return true
         }
-
     },
 
     userAssistant: (req) => {

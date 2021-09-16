@@ -98,12 +98,14 @@ router.get('/:id', isLoggedIn, checkRoles('US', 'PR', 'AD'), (req, res) => {
     const event = Event.findById(id)
     const comments = Comment.find({ event: id })
     const ratings = Rating.find({ event: id })
+    let isAssitant = undefined
 
     Promise
         .all([event, comments, ratings])
         .then(response => {
             let avg = Math.round(average(response[2].map(elm => elm.rate)))
-            res.render('event/details-event', { response, avg, producerOrAdmin: producerOrAdmin(req) })
+            response[0].assistants.includes(req.session.currentUser._id) ? isAssitant = true : isAssitant = false
+            res.render('event/details-event', { response, avg, producerOrAdmin: producerOrAdmin(req), isAssitant })
         })
         .catch(err => console.log('Error', err))
 })
