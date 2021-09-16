@@ -50,13 +50,5 @@ router.post('/:id/delete', isLoggedIn, (req, res) => {
 
 })
 
-router.get('/:id/close', isLoggedIn, (req, res) => {
-    const { id } = req.params
-    User
-        .findById(id)
-        .then(() => req.session.destroy(() => res.redirect('/')))
-        .catch(err => console.log(err))
-})
-
 
 module.exports = router;

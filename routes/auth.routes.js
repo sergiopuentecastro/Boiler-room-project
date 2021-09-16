@@ -85,8 +85,9 @@ router.post('/login', (req, res) => {
 
 // Cerrar sesión
 router.get('/logout', (req, res) => {
-    req.session.destroy(() => res.redirect('/'))
     req.app.locals.isLogged = false
+    req.app.locals.producerOrAd = false
+    req.session.destroy(() => res.redirect('/'))
 })
 
 module.exports = router;
