@@ -1,8 +1,8 @@
 <div class="container">
     <div class="row">
-        <div class="col-md-6">
 
-            <form action="/event/new" method="POST">
+        <form action="/event/new" method="POST" enctype="multipart/form-data">
+            <div class="col-md-12">
                 <h1 style="font-weight: 100">Create new event</h1>
                 <div class="form-group">
                     <label for="title">Title</label>
@@ -22,7 +22,7 @@
                 </div>
                 <div class="form-group">
                     <label for="eventImage">Event image</label>
-                    <input name="eventImage" type="text" class="form-control" id="eventImage">
+                    <input name="eventImage" type="file" class="form-control" id="eventImage">
                 </div>
                 <div class="form-group">
                     <label for="instagram">Instagram</label>
@@ -36,7 +36,8 @@
                     <label for="youtube">Youtube</label>
                     <input name="youtubeUrl" type="text" class="form-control" id="youtube">
                 </div>
-
+            </div>
+            <div class="col-md-12">
                 <div class="form-group">
                     <div class="row">
                         <div class="col-md-6">
@@ -53,18 +54,19 @@
                         </div>
                     </div>
                 </div>
-                <figure id="myMap"></figure>
-                <button type="submit" class="btn btn-dark">Create event</button>
-                <a href="/event" class="btn btn-dark">Go back</a>
-            </form>
-        </div>
-        {{!-- {{#if errorMsg}}
-        <p id="errorMessage">{{errorMsg}}</p>
-        {{/if}} --}}
+            </div>
+            <figure id="myMap"></figure>
+            <button type="submit" class="btn btn-dark">Create event</button>
+            <a href="/event" class="btn btn-dark">Go back</a>
+        </form>
     </div>
-    <script src="/js/mapStyles.js"></script>
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="/js/place-map-setup.js"></script>
-    <script
-        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoajqXibWJz4sOq2ROb_U-8TdlpWx_Cds&callback=initMap"></script>
+    {{#if errorMsg}}
+    <p id="errorMessage">{{errorMsg}}</p>
+    {{/if}}
+</div>
+<script src="/js/mapStyles.js"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="/js/place-map-setup.js"></script>
+<script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBoajqXibWJz4sOq2ROb_U-8TdlpWx_Cds&callback=initMap"></script>
 </div>

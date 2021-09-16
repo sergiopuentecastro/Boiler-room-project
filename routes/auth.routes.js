@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const bcrypt = require('bcrypt')
 const User = require("../models/User.model")
+const CDNupload = require('../config/cloudinary.config')
 
 
 // Registro de usuario
@@ -8,8 +9,8 @@ router.get('/signup', (req, res) => {
     res.render('auth/signup')
 })
 
-router.post('/signup', (req, res) => {
-    const { userName, email, userPwd, profileImage, age, description } = req.body
+router.post('/signup', CDNupload.single('profileImage'), (req, res) => {
+    const { userName, email, userPwd, age, description } = req.body
     if (userPwd.length === 0) {
         res.render('auth/signup', { errorMsg: 'La contraseña es obligatoria' })
         return
