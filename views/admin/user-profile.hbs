@@ -1,0 +1,24 @@
+<h5>Perfil de {{user.userName}}</h5>
+
+
+<div class="card" style="width: 18rem">
+    <img src="{{user.profileImage}}" class="card-img-top" alt="{{user.userName}}">
+    <div class="card-body">
+        <h5 class="card-title">Nombre: {{user.userName}}</h5>
+        <p>Rol: {{user.role}}</p>
+        <form action="/admin/{{user._id}}/user-delete" method="POST">
+            <button type="submit" class="btn btn-warning back-button">Eliminar</button>
+        </form>
+
+        <form action="/admin/{{user._id}}/change-role" method="POST">
+            <select name="role" id="role">
+                <option value="US">Usuario</option>
+                <option value="PR">Productor</option>
+            </select>
+            <button type="submit" class="btn btn-dark">Cambiar Rol</button>
+        </form>
+    </div>
+</div>
+
+</div>
+<a href="/admin/users-search" class="btn btn-dark">Volver</a>
