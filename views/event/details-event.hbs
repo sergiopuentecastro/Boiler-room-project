@@ -6,22 +6,32 @@
         </div>
         <div class="col-6">
             <p>{{response.0.description}}</p>
-            <small><strong>Date: </strong> {{response.0.time}} | <strong>Capacity: </strong> {{response.0.capacity}} |
+            <small><strong>Fecha: </strong> {{response.0.time}} | <strong>Capacidad: </strong> {{response.0.capacity}} |
                 <strong>Latitude: </strong>
                 <p name="lat" id="latitude">{{response.0.address.coordinates.[0]}}</p>
                 <strong>Longitude: </strong>
                 <p name="lng" id="longitude">{{response.0.address.coordinates.[1]}}</p>
+                <strong>Dirección: </strong>
+                <p name="lng" id="longitude">{{response.0.address.direction}}</p>
                 <p name="rate">Valoración: {{avg}}
                     {{#if producerOrAdmin}}
                 <form action="/event/{{response.0._id}}/edit" method="GET" class="col-12 col-sm-6 col-md-4">
-                    <button type="submit" class="btn btn-warning">EDIT</button>
+                    <button type="submit" class="btn btn-warning">Editar evento</button>
                 </form>
                 {{/if}}
-                <a href="/event" class="btn btn-dark">Go back</a>
+
+                <a href="/event" class="btn btn-dark">Volver</a>
                 <form action="/assistant" method="POST" class="col-12 col-sm-6 col-md-4">
-                    <button type="submit" class="btn btn-warning">ASISTENCIA</button>
+                    <button type="submit" class="btn btn-warning" id="confirm">ASISTENCIA</button>
                     <input type="text" hidden name="event" value="{{response.0._id}}">
                 </form>
+
+
+                <form action="/assistantremoved" method="POST" class="col-12 col-sm-6 col-md-4">
+                    <button type="submit" class="btn btn-warning" id="confirm">No asitiré</button>
+                    <input type="text" hidden name="event" value="{{response.0._id}}">
+                </form>
+
         </div>
     </div>
     <hr>

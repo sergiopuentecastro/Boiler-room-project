@@ -32,11 +32,12 @@ router.get('/new', isLoggedIn, checkRoles('PR', 'AD'), (req, res) => {
 
 router.post('/new', checkRoles('PR', 'AD'), (req, res) => {
 
-    const { title, description, capacity, time, eventImage, instagramUrl, spotifyUrl, youtubeUrl, lat, lng, assistants } = req.body
+    const { title, description, capacity, time, eventImage, instagramUrl, spotifyUrl, youtubeUrl, lat, lng, direction, assistants } = req.body
 
     const address = {
         type: 'Point',
-        coordinates: [lat, lng]
+        coordinates: [lat, lng],
+        direction: direction
     }
 
 

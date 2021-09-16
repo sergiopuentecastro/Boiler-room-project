@@ -27,7 +27,8 @@ const eventSchema = new Schema({
         type: {
             type: String
         },
-        coordinates: [Number]
+        coordinates: [Number],
+        direction: String
     },
     socialMedia: {
         instagramUrl: {
