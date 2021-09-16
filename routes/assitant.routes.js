@@ -10,9 +10,9 @@ router.post('/assistant', (req, res) => {
     Event.findOne({ _id: event, assistants: req.session.currentUser._id })
         .then(e => {
             if (e) {
+                // document.querySelector('#confirm').classList.remove('.btn-danger')
                 return
             }
-
             return Event
                 .findByIdAndUpdate(event, { $push: { assistants: req.session.currentUser._id } })
         })
@@ -20,8 +20,15 @@ router.post('/assistant', (req, res) => {
         .catch(error => console.log(error))
 })
 
-// router.post('/:id/assistantremoved', (req, res) => {
-//     res.send('Eliminación de asistencia del evento')
-// })
+router.post('/assistantremoved', (req, res) => {
+
+    const { event } = req.body
+
+    Event
+        .findByIdAndRemove({ assistants: req.session.currentUser._id })
+        .then(() => res.redirect(`/event/${event}`))
+        .catch(err => console.log('Error', err))
+
+})
 
 module.exports = router

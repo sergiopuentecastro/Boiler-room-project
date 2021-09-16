@@ -20,10 +20,9 @@ function initMap() {
 function geocodeAddress(geocoder, resultsMap) {
     let address = document.getElementById('address').value;
     geocoder.geocode({ 'address': address }, function (results, status) {
-        console.log(results[0].geometry.location)
-
         document.querySelector('#location-lat').value = results[0].geometry.location.lat()
         document.querySelector('#location-lng').value = results[0].geometry.location.lng()
+        document.querySelector('#location-address').value = results[0].formatted_address
         if (status === google.maps.GeocoderStatus.OK) {
             resultsMap.setCenter(results[0].geometry.location);
             let marker = new google.maps.Marker({
@@ -35,27 +34,5 @@ function geocodeAddress(geocoder, resultsMap) {
             var errorText = 'Address lookup was not successful for the following reason: ' + status;
             error.insertAdjacentHTML('afterBegin', errorText);
         }
-        console.log(results[0].formatted_address)
     });
 }
-
-// function getEvents(map) {
-
-//     axios
-//         .get('/api/event')
-//         .then(response => printEvents(response.data, map))
-//         .catch(err => console.log(err))
-// }
-
-
-// function printEvents(events, map) {
-
-//     restaurants.forEach(elm => {
-//         let position = {
-//             lat: elm.location.coordinates[0],
-//             lng: elm.location.coordinates[1]
-//         }
-//         new google.maps.Marker({ map, position })
-//     })
-// }
-
