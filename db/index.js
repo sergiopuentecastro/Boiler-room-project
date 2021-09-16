@@ -1,15 +1,5 @@
-<<<<<<< HEAD
-// ℹ️ package responsible to make the connection with mongodb
-// https://www.npmjs.com/package/mongoose
 const mongoose = require("mongoose");
 
-// ℹ️ Sets the MongoDB URI for our app to have access to it.
-// If no env has been set, we dynamically set it to whatever the folder name was upon the creation of the app
-
-=======
-const mongoose = require("mongoose");
-
->>>>>>> c532fd5d639ba63a820801552c7d4d1c28d24721
 const MONGO_URI = process.env.MONGODB_URI
 
 mongoose
