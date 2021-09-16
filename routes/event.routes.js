@@ -9,11 +9,12 @@ const { checkId, isLoggedIn, checkRoles } = require("../middleware")
 
 // Vista de los eventos
 router.get('/', (req, res) => {
-
+    console.log("pidiendo eventos")
     Event
         .find()
         .select('title capacity time eventImage address')
         .then(events => {
+            console.log(events)
             res.render('event/list', { events, isLogged: req.session.currentUser })
         })
         .catch((err) => console.error(err))
