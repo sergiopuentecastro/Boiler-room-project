@@ -22,7 +22,7 @@ router.get('/:id/edit', isLoggedIn, (req, res) => {
 
     User
         .findById(id)
-        .then(() => res.render('user/edit-profile', { user: req.session.currentUser }))
+        .then(user => res.render('user/edit-profile', { user: req.session.currentUser }))
         .catch(err => console.log(err))
 })
 
@@ -33,12 +33,23 @@ router.post('/:id/edit', isLoggedIn, (req, res) => {
     User
         .findByIdAndUpdate(id, { userName, age, description, profileImage, email }, { new: true })
         .then(user => {
+            if (age < 18) {
+                res.render('user/edit-profile', { errorMsg: 'Para mayores de 18 años' })
+                return
+            }
+            if (userName.length === 0) {
+                res.render('user/edit-profile', { errorMsg: 'Nombre obligatorio' })
+                return
+            }
+            if (email.length === 0) {
+                res.render('user/edit-profile', { errorMsg: 'Mail obligatorio' })
+                return
+            }
             req.session.currentUser = user
             res.redirect('/myprofile/profileview')
         })
         .catch(err => console.log(err))
 })
-
 
 // Borrar perfil
 router.post('/:id/delete', isLoggedIn, (req, res) => {

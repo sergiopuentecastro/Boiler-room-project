@@ -1,0 +1,22 @@
+<h1>Usuarios</h1>
+{{#each users}}
+<div class="card" style="width: 18rem;">
+    <img src="{{profileImage}}" class="card-img-top" alt="{{name}}">
+    <div class="card-body">
+        <h5 class="card-title">Nombre: {{userName}}</h5>
+        <p>Rol: {{role}}</p>
+        <form action="/admin/{{id}}/user-delete" method="POST">
+            <button type="submit" class="btn btn-warning back-button">Eliminar</button>
+        </form>
+
+        <form action="/admin/{{id}}/chage-role" method="POST">
+            <select name="role" id="role">
+                <option value="US">Usuario</option>
+                <option value="PR">Productor</option>
+            </select>
+            <button type="submit" class="btn btn-dark">Cambiar Rol</button>
+        </form>
+    </div>
+</div>
+{{/each}}
+</div>

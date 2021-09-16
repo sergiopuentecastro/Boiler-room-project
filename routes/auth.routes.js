@@ -22,7 +22,10 @@ router.post('/signup', (req, res) => {
         res.render('auth/signup', { errorMsg: 'El email es obligatorio' })
         return
     }
-
+    if (age < 18) {
+        res.render('auth/signup', { errorMsg: 'Para mayores de 18 años' })
+        return
+    }
     User
         .findOne({ email })
         .then(user => {
@@ -34,8 +37,10 @@ router.post('/signup', (req, res) => {
             const salt = bcrypt.genSaltSync(bcryptSalt)
             const hashPass = bcrypt.hashSync(userPwd, salt)
 
+            const query = { userName, email, password: hashPass, age }
+            if (profileImage) query.profileImage = profileImage
             User
-                .create({ userName, email, password: hashPass, profileImage, age, description })
+                .create(query)
                 .then(() => res.redirect('/'))
                 .catch(err => console.log(err))
         })
@@ -76,7 +81,12 @@ router.post('/login', (req, res) => {
 
             req.session.currentUser = user
             req.app.locals.isLogged = req.session.currentUser
-            if (user.role === 'PR' || user.role === 'AD') req.app.locals.producerOrAd = true
+            if (user.role === 'PR') {
+                req.app.locals.producerOrAd = true
+            } else if (user.role === 'AD') {
+                req.app.locals.isAdmin = true
+                req.app.locals.producerOrAd = true
+            }
             res.redirect('/')
         })
         .catch(err => console.log(err))
@@ -87,6 +97,7 @@ router.post('/login', (req, res) => {
 router.get('/logout', (req, res) => {
     req.app.locals.isLogged = false
     req.app.locals.producerOrAd = false
+    req.app.locals.isAdmin = false
     req.session.destroy(() => res.redirect('/'))
 })
 

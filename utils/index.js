@@ -16,5 +16,12 @@ module.exports = {
         if (isPr || isAd) {
             return true
         }
+    },
+
+    adminRole: (req) => {
+        let isAdmin = req.session.currentUser?.role === 'AD'
+        if (isAdmin) {
+            return true
+        }
     }
 }

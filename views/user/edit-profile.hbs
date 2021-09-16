@@ -34,6 +34,10 @@
 
                 <button type="submit" class="btn btn-dark btn-block">Guardar</button>
             </form>
+            {{#if errorMsg}}
+            <p id="errorMessage">{{errorMsg}}</p>
+            {{/if}}
+
 
             <form action="/myprofile/{{user._id}}/delete" method="POST">
                 <button type="submit" class="btn btn-warning back-button">Eliminar</button>

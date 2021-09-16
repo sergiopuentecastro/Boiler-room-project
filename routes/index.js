@@ -8,4 +8,5 @@ module.exports = app => {
   app.use('/api', require('./api.routes'))
   app.use('/rating', require('./rating.routes'))
   app.use('/', require('./assitant.routes'))
+  app.use('/admin', require('./admin.routes'))
 }
