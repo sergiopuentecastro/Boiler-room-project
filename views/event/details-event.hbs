@@ -7,12 +7,9 @@
         <div class="col-6">
             <p>{{response.0.description}}</p>
             <small><strong>Fecha: </strong> {{response.0.time}} | <strong>Capacidad: </strong> {{response.0.capacity}} |
-                <strong>Latitude: </strong>
-                <p name="lat" id="latitude">{{response.0.address.coordinates.[0]}}</p>
-                <strong>Longitude: </strong>
-                <p name="lng" id="longitude">{{response.0.address.coordinates.[1]}}</p>
-                <strong>Dirección: </strong>
-                <p name="lng" id="longitude">{{response.0.address.direction}}</p>
+                <p name="lat" hidden id="latitude">{{response.0.address.coordinates.[0]}}</p>
+                <p name="lng" hidden id="longitude">{{response.0.address.coordinates.[1]}}</p>
+                <p name="lng" id="location-address"><strong>Dirección: </strong>{{response.0.address.direction}}</p>
                 <p name="rate">Valoración: {{avg}}
                     {{#if producerOrAdmin}}
                 <form action="/event/{{response.0._id}}/edit" method="GET" class="col-12 col-sm-6 col-md-4">

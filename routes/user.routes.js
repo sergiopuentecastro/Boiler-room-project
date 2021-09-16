@@ -2,6 +2,7 @@ const router = require("express").Router();
 const bcrypt = require('bcrypt')
 const User = require("../models/User.model")
 const { isLoggedIn } = require('./../middleware')
+const CDNupload = require('../config/cloudinary.config')
 
 
 // Ver mi perfil
@@ -26,9 +27,9 @@ router.get('/:id/edit', isLoggedIn, (req, res) => {
         .catch(err => console.log(err))
 })
 
-router.post('/:id/edit', isLoggedIn, (req, res) => {
+router.post('/:id/edit', CDNupload.single('profileImage'), isLoggedIn, (req, res) => {
     const { id } = req.params
-    const { userName, age, description, profileImage, email } = req.body
+    const { userName, age, description, email } = req.body
 
     User
         .findByIdAndUpdate(id, { userName, age, description, profileImage, email }, { new: true })

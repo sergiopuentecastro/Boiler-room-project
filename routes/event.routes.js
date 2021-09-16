@@ -5,6 +5,7 @@ const User = require('../models/User.model')
 const Rating = require('../models/Rating.model')
 const { average, producerOrAdmin } = require('../utils/index')
 const { checkId, isLoggedIn, checkRoles } = require("../middleware")
+const CDNupload = require('../config/cloudinary.config')
 
 
 // Vista de los eventos
@@ -31,19 +32,36 @@ router.get('/new', isLoggedIn, checkRoles('PR', 'AD'), (req, res) => {
         .catch((err) => console.error(err))
 })
 
-router.post('/new', checkRoles('PR', 'AD'), (req, res) => {
+router.post('/new', CDNupload.single('eventImage'), checkRoles('PR', 'AD'), (req, res) => {
 
-    const { title, description, capacity, time, eventImage, instagramUrl, spotifyUrl, youtubeUrl, lat, lng, direction, assistants } = req.body
-
+    const { title, description, capacity, time, instagramUrl, spotifyUrl, youtubeUrl, lat, lng, direction, assistants } = req.body
     const address = {
         type: 'Point',
         coordinates: [lat, lng],
         direction: direction
     }
+    console.log('===========___________=======>', req.file)
 
+
+    if (title.length === 0) {
+        res.render('event/new-event', { errorMsg: 'El título es obligatorio' })
+        return
+    }
+    if (description.length === 0) {
+        res.render('event/new-event', { errorMsg: 'La descripción del evento es obligatoria' })
+        return
+    }
+    if (capacity.length < 0) {
+        res.render('event/new-event', { errorMsg: 'La capacidad es obligatoria' })
+        return
+    }
+    // if (eventImage.length === 0) {
+    //     res.render('event/new-event', { errorMsg: 'La imagen del evento es obligatoria' })
+    //     return
+    // }
 
     Event
-        .create({ title, description, capacity, time, eventImage, address, socialMedia: { instagramUrl, spotifyUrl, youtubeUrl }, assistants })
+        .create({ title, description, capacity, time, eventImage: req.file.path, address, socialMedia: { instagramUrl, spotifyUrl, youtubeUrl }, assistants })
         .then(() => res.redirect('/event'))
         .catch((err) => console.log(err))
 
@@ -62,14 +80,30 @@ router.get('/:id/edit', isLoggedIn, checkRoles('PR', 'AD'), (req, res) => {
 
 })
 
-router.post('/:id/edit', isLoggedIn, checkRoles('PR', 'AD'), (req, res) => {
+router.post('/:id/edit', CDNupload.single('eventImage'), isLoggedIn, checkRoles('PR', 'AD'), (req, res) => {
 
     const { id } = req.params
     const { title, description, capacity, time, eventImage, socialMedia, lat, lng } = req.body
-
     const address = {
         type: 'Point',
         coordinates: [lat, lng]
+    }
+
+    if (title.length === 0) {
+        res.render('event/edit-event', { errorMsg: 'El título es obligatorio' })
+        return
+    }
+    if (description.length === 0) {
+        res.render('event/edit-event', { errorMsg: 'La descripción del evento es obligatoria' })
+        return
+    }
+    if (capacity.length < 0) {
+        res.render('event/edit-event', { errorMsg: 'La capacidad es obligatoria' })
+        return
+    }
+    if (eventImage.length === 0) {
+        res.render('event/edit-event', { errorMsg: 'La imagen del evento es obligatoria' })
+        return
     }
 
     Event
