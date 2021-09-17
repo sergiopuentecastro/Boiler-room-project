@@ -92,8 +92,9 @@
                     <div class="panel-body">{{description}}</div>
                 </div>
 
+                {{#if ../isOwner}}
                 <a class="btn btn-dark btn-open-review edit-comment-btn">Editar reseña</a>
-
+                {{/if}}
                 <div class="editForm">
 
                     <form action="/comment/{{_id}}/edit" method="POST">
