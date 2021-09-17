@@ -1,12 +1,12 @@
 <div class="container">
 
-    <div class="row">
+    <div class="row edit-event">
 
-        <div class="col-md-6">
+        <div class="col-12">
             <h1 style="font-weight: 100">Editar - {{events.title}} </h1>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-12">
 
             <form action="/event/{{events.id}}/edit" method="POST">
                 <div class="form-group">
@@ -36,8 +36,8 @@
                         <div class="col-md-6">
                             <label for="address">Address</label>
                             <input id="address" type="text" />
-                            <input type=" text" name="lat" id="location-lat">
-                            <input type="text" name="lng" id="location-lng">
+                            <input type=" text" hidden name="lat" id="location-lat">
+                            <input type="text" hidden name="lng" id="location-lng">
                             <button type="button" id="submit" name="address">Locate!</button>
                             <p id="error-msg"></p>
                         </div>

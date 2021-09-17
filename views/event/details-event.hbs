@@ -1,40 +1,57 @@
 <div class="container">
     <div class="row">
-        <h1 style="font-weight: 100">{{response.0.title}}</h1>
-        <div class="col-6">
+        <div class="col-12 d-flex justify-content-center img-event">
             <img src="{{response.0.eventImage}}" alt="{{response.0.title}}" class="img-thumbnail">
         </div>
-        <div class="col-6">
-            <p>{{response.0.description}}</p>
-            <small><strong>Fecha: </strong> {{response.0.time}} | <strong>Capacidad: </strong> {{response.0.capacity}} |
-                <p name="lat" hidden id="latitude">{{response.0.address.coordinates.[0]}}</p>
-                <p name="lng" hidden id="longitude">{{response.0.address.coordinates.[1]}}</p>
-                <p name="lng" id="location-address"><strong>Dirección: </strong>{{response.0.address.direction}}</p>
-                <p name="rate">Valoración: {{avg}}
-                    {{#if producerOrAdmin}}
-                <form action="/event/{{response.0._id}}/edit" method="GET" class="col-12 col-sm-6 col-md-4">
-                    <button type="submit" class="btn btn-warning">Editar evento</button>
-                </form>
-                {{/if}}
-
-                <a href="/event" class="btn btn-dark">Volver</a>
+        <div class="col-12 d-flex justify-content-center">
+            <div class="row ">
+                <div class="col-6 information-event">
+                    <h1 style=" font-weight: 100">{{response.0.title}}</h1>
+                    <p>{{response.0.description}}</p>
+                    <small><strong>Fecha: </strong> {{response.0.time}} | <strong>Capacidad: </strong>
+                        {{response.0.capacity}} |
+                        <p name="lat" hidden id="latitude">{{response.0.address.coordinates.[0]}}</p>
+                        <p name="lng" hidden id="longitude">{{response.0.address.coordinates.[1]}}</p>
+                        <p name="lng" id="location-address"><strong>Dirección: </strong>{{response.0.address.direction}}
+                        </p>
+                        <p name="rate">Valoración: {{avg}}
+                            {{#if producerOrAdmin}}
+                        <form action="/event/{{response.0._id}}/edit" method="GET" class="col-12 col-sm-6 col-md-4">
+                            <button type="submit" class="btn btn-outline-warning">Editar evento</button>
+                        </form>
+                        {{/if}}
+                </div>
+            </div>
+            <div class="d-flex assistment">
+                <a href="/event" class="btn btn-outline-dark">Volver</a>
                 {{#unless isAssitant}}
                 <form action="/assistant" method="POST" class="col-12 col-sm-6 col-md-4">
-                    <button type="submit" class="btn btn-warning" id="confirm">ASISTENCIA</button>
+                    <button type="submit" class="btn btn-outline-success" id="confirm">Asistiré</button>
                     <input type="text" hidden name="event" value="{{response.0._id}}">
                 </form>
                 {{else}}
                 <form action="/assistantremoved" method="POST" class="col-12 col-sm-6 col-md-4">
-                    <button type="submit" class="btn btn-warning" id="confirm">No asitiré</button>
+                    <button type="submit" class="btn btn-outline-danger" id="confirm">No asitiré</button>
                     <input type="text" hidden name="event" value="{{response.0._id}}">
                 </form>
                 {{/unless}}
-
+            </div>
+            <form action="/rating/new" method="POST">
+                <select name="rate" id="rate">
+                    <option value="1">1</option>
+                    <option value="2">2</option>
+                    <option value="3">3</option>
+                    <option value="4">4</option>
+                    <option value="5">5</option>
+                </select>
+                <button type="submit" class="btn btn-outline-secondary">Valorar</button>
+                <input type="text" hidden name="event" value="{{response.0._id}}">
+            </form>
         </div>
     </div>
     <hr>
     <figure id="myMap"></figure>
-    <form action="/rating/new" method="POST">
+    {{!-- <form action="/rating/new" method="POST">
         <select name="rate" id="rate">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -44,7 +61,7 @@
         </select>
         <button type="submit" class="btn btn-dark">Valorar</button>
         <input type="text" hidden name="event" value="{{response.0._id}}">
-    </form>
+    </form> --}}
 
     <a id="commnet-btn" class="btn btn-dark btn-open-review">Escribir reseña</a>
 
