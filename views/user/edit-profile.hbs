@@ -9,7 +9,7 @@
             <br>
             <hr>
             <br>
-            <form action="/myprofile/{{user._id}}/edit" method="POST">
+            <form action="/myprofile/{{user._id}}/edit" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="userName">Nombre</label>
                     <input type="text" class="form-control" id="userName" name="userName" value="{{user.userName}}">

@@ -38,8 +38,9 @@ router.post('/signup', CDNupload.single('profileImage'), (req, res) => {
             const salt = bcrypt.genSaltSync(bcryptSalt)
             const hashPass = bcrypt.hashSync(userPwd, salt)
 
-            const query = { userName, email, password: hashPass, age }
-            if (profileImage) query.profileImage = profileImage
+            const query = { userName, email, password: hashPass, age, description }
+
+            req.file && (query.profileImage = req.file.path)
             User
                 .create(query)
                 .then(() => res.redirect('/'))

@@ -55,13 +55,13 @@ router.post('/new', CDNupload.single('eventImage'), checkRoles('PR', 'AD'), (req
         res.render('event/new-event', { errorMsg: 'La capacidad es obligatoria' })
         return
     }
-    // if (eventImage.length === 0) {
-    //     res.render('event/new-event', { errorMsg: 'La imagen del evento es obligatoria' })
-    //     return
-    // }
+
+    const query = { title, description, capacity, time, address, socialMedia: { instagramUrl, spotifyUrl, youtubeUrl }, assistants }
+
+    req.file && (query.eventImage = req.file.path)
 
     Event
-        .create({ title, description, capacity, time, eventImage: req.file.path, address, socialMedia: { instagramUrl, spotifyUrl, youtubeUrl }, assistants })
+        .create(query)
         .then(() => res.redirect('/event'))
         .catch((err) => console.log(err))
 
@@ -101,13 +101,11 @@ router.post('/:id/edit', CDNupload.single('eventImage'), isLoggedIn, checkRoles(
         res.render('event/edit-event', { errorMsg: 'La capacidad es obligatoria' })
         return
     }
-    if (eventImage.length === 0) {
-        res.render('event/edit-event', { errorMsg: 'La imagen del evento es obligatoria' })
-        return
-    }
+    const query = { title, description, capacity, time, socialMedia, address }
+    req.file && (query.eventImage = req.file.path)
 
     Event
-        .findByIdAndUpdate(id, { title, description, capacity, time, eventImage, socialMedia, address }, { new: true })
+        .findByIdAndUpdate(id, query, { new: true })
         .then(events => res.redirect(`/event/${events.id}`))
         .catch(err => console.log('Error', err))
 

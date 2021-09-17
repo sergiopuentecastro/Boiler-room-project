@@ -31,21 +31,36 @@ router.post('/:id/edit', CDNupload.single('profileImage'), isLoggedIn, (req, res
     const { id } = req.params
     const { userName, age, description, email } = req.body
 
+    if (age < 18) {
+        res.render('user/edit-profile', { errorMsg: 'Para mayores de 18 años' })
+        return
+    }
+    if (userName.length === 0) {
+        res.render('user/edit-profile', { errorMsg: 'Nombre obligatorio' })
+        return
+    }
+    if (email.length === 0) {
+        res.render('user/edit-profile', { errorMsg: 'Mail obligatorio' })
+        return
+    }
+
+    const query = {
+        userName,
+        age,
+        description,
+        email
+    }
+
+    //if(req.file) query.profileImage = req.file.path
+    req.file && (query.profileImage = req.file.path)
+
+    //if(!algo) hago esto
+    //algo || hago esto
+
     User
-        .findByIdAndUpdate(id, { userName, age, description, profileImage, email }, { new: true })
+        .findByIdAndUpdate(id, query, { new: true })
         .then(user => {
-            if (age < 18) {
-                res.render('user/edit-profile', { errorMsg: 'Para mayores de 18 años' })
-                return
-            }
-            if (userName.length === 0) {
-                res.render('user/edit-profile', { errorMsg: 'Nombre obligatorio' })
-                return
-            }
-            if (email.length === 0) {
-                res.render('user/edit-profile', { errorMsg: 'Mail obligatorio' })
-                return
-            }
+
             req.session.currentUser = user
             res.redirect('/myprofile/profileview')
         })

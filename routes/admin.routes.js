@@ -14,10 +14,7 @@ router.post('/users-search', isLoggedIn, checkRoles('AD'), (req, res) => {
 
     User
         .findOne({ userName })
-        .then(user => {
-            console.log(user)
-            res.render('admin/user-list', { user })
-        })
+        .then(user => res.render('admin/user-list', { user }))
         .catch(error => console.log(error))
 })
 

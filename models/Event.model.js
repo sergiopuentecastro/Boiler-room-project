@@ -22,6 +22,7 @@ const eventSchema = new Schema({
     eventImage: {
         type: String,
         required: true,
+        default: './images/boiler-room.jpeg'
     },
     address: {
         type: {
