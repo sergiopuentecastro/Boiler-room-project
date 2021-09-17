@@ -1,37 +1,47 @@
-<div class="container">
-
-
+{{!-- <div class="container">
     <div class="row justify-content-center">
-
         <div class="col-md-4">
-
             <h1 class="row justify-content-center">Entrar</h1>
             <br>
             <hr>
             <br>
-
             <form action="/login" method="POST">
                 <div class="form-group">
                     <label for="userName">Nombre</label>
                     <input type="text" class="form-control" id="userName" name="userName">
                 </div>
-
                 <div class="form-group">
                     <label for="password">Contraseña</label>
                     <input type="password" class="form-control" id="password" name="userPwd">
                 </div>
                 <button type="submit" class="btn btn-dark btn-block">Entrar</button>
             </form>
-
             {{#if errorMsg}}
             <p id="errorMessage">{{errorMsg}}</p>
             {{/if}}
-
             <hr>
-
             <p>¿No estas registrad@? <a class="signup" href="/signup">Registrate</a></p>
         </div>
     </div>
+</div> --}}
 
-
+<div class="square">
+    <form action="/login" method="POST">
+        <div class="form-group">
+            <label for="userName">Nombre</label>
+            <input type="text" class="form-control" id="userName" name="userName">
+        </div>
+        <br>
+        <div class="form-group">
+            <label for="password">Contraseña</label>
+            <input type="password" class="form-control" id="password" name="userPwd">
+        </div>
+        <br>
+        <button type="submit" class="btn btn-dark btn-block">Entrar</button>
+    </form>
+    {{#if errorMsg}}
+    <p id="errorMessage">{{errorMsg}}</p>
+    {{/if}}
+    <hr>
+    <p>¿No estas registrad@? <a class="signup" href="/signup">Registrate</a></p>
 </div>

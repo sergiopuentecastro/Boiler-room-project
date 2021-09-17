@@ -1,15 +1,13 @@
 <div class="container">
-
-
     <div class="row justify-content-center">
-
         <div class="col-md-4">
-
+            <br>
+            <br>
+            <br>
             <h1 class="row justify-content-center">Resgistrarme</h1>
             <br>
             <hr>
             <br>
-
             <form action="/signup" method="POST">
                 <div class="form-group">
                     <label for="userName">Nombre</label>
@@ -35,16 +33,12 @@
                     <label for="description">Descripción</label>
                     <input type="text" class="form-control" id="description" name="description">
                 </div>
-
                 <button type="submit" class="btn btn-dark btn-block">Resgistrarme</button>
             </form>
-
             {{#if errorMsg}}
             <p id="errorMessage">{{errorMsg}}</p>
             {{/if}}
-
             <hr>
-
             <p>¿Ya estas registrad@? <a class="login" href="/login">Entra en tu perfil</a></p>
         </div>
     </div>
