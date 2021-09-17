@@ -3,8 +3,6 @@ const User = require("../models/User.model")
 const { checkId, isLoggedIn, checkRoles } = require("../middleware")
 
 
-
-
 // Buscar usuarios(renderizado)
 router.get('/users-search', isLoggedIn, checkRoles('AD'), (req, res) => res.render('admin/user-list'))
 
@@ -33,10 +31,6 @@ router.get('/user-profile/:id', isLoggedIn, checkRoles('AD'), (req, res) => {
 })
 
 
-
-
-
-
 // Eliminar usuarios
 router.post('/:id/user-delete', isLoggedIn, checkRoles('AD'), (req, res) => {
 
@@ -48,6 +42,7 @@ router.post('/:id/user-delete', isLoggedIn, checkRoles('AD'), (req, res) => {
         .catch(error => console.log(error))
 
 })
+
 
 // Cambiar roles de usuarios
 router.post('/:id/change-role', isLoggedIn, checkRoles('AD'), (req, res) => {
