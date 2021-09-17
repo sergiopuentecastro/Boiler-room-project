@@ -52,6 +52,8 @@ p {
 
 #myMap {
   height: 400px;
+  width: 60%;
+  margin: 0 auto;
 }
 
 footer {
@@ -159,7 +161,8 @@ footer {
 }
 
 .card-img-top {
-  height: 250px;
+  height: 100%;
+  object-fit: contain;
 }
 
 .profile-user {
@@ -167,6 +170,22 @@ footer {
   margin-top: 150px;
   margin-left: 500px;
 }
+
+.comments{
+  list-style: none;
+}
+
+.comments > li> div{
+  border: black solid 1px;
+  border-radius: 5px;
+  padding: 20px;
+  margin: 10px auto
+}
+.edit-comment-btn{
+  padding: 10px 20px;
+  height: initial;
+}
+
 
 /* @import url('https://fonts.googleapis.com/css?family=Oswald:400,700|Raleway:300,400,700');
 *{box-sizing: border-box;}

@@ -82,33 +82,37 @@
     </div>
 
     <div>
-        <ul>
+        <ul class="comments row">
             {{#each response.[1]}}
-            <li>
-                <p>{{title}}</p>
-                <p>{{description}}</p>
-                {{#if isOwner}}
-                <a class="btn btn-dark btn-open-review edit-comment-btn">Editar reseña</a>
-                {{/if}}
-                <div class="editForm">
+            <li class="col-6">
+                <div class="row">
+                    <div class="info col-6">
+                        <p>{{title}}</p>
+                        <p>{{description}}</p>
+                    </div>
+                    {{#if isOwner}}
+                    <a class="btn btn-dark btn-open-review edit-comment-btn col-6">Editar reseña</a>
+                    {{/if}}
+                    <div class="editForm col-12">
 
-                    <form action="/comment/{{_id}}/edit" method="POST">
-                        <label for="title">Título</label>
-                        <input type="text" class="form-control" id="title" name="title" value="{{title}}">
+                        <form action="/comment/{{_id}}/edit" method="POST">
+                            <label for="title">Título</label>
+                            <input type="text" class="form-control" id="title" name="title" value="{{title}}">
 
-                        <label for="description">Descripción</label>
-                        <input type="text" class="form-control" id="description" name="description"
-                            value="{{description}}">
+                            <label for="description">Descripción</label>
+                            <input type="text" class="form-control" id="description" name="description"
+                                value="{{description}}">
 
-                        <input type="text" hidden name="event" value="{{event._id}}">
+                            <input type="text" hidden name="event" value="{{event._id}}">
 
-                        <button type="submit" class="btn btn-dark">Guardar</button>
-                        <button class="btn btn-dark hide-edit-form">Volver</button>
-                    </form>
-                    <form action="/comment/{{_id}}/delete" method="POST" class="col-12 col-sm-6 col-md-4">
-                        <button type="submit" class="btn btn-danger">Eliminar</button>
-                    </form>
+                            <button type="submit" class="btn btn-dark">Guardar</button>
+                            <button class="btn btn-dark hide-edit-form">Volver</button>
+                        </form>
+                        <form action="/comment/{{_id}}/delete" method="POST" class="col-12 col-sm-6 col-md-4">
+                            <button type="submit" class="btn btn-danger">Eliminar</button>
+                        </form>
 
+                    </div>
                 </div>
             </li>
             {{/each}}
