@@ -140,18 +140,12 @@ router.get('/:id', isLoggedIn, checkRoles('US', 'PR', 'AD'), (req, res) => {
 
         .then(response => {
             let avg = Math.round(average(response[2].map(elm => elm.rate)))
-            response[0].assistants.includes(req.session.currentUser._id) ? isAssitant = true : isAssitant = false
-            let ownerComments = response[1]
 
-            ownerComments.forEach(elm => {
-                elm.isOwner = elm.author === req.session.currentUser._id ? true : false
+            response[0].assistants.includes(req.session.currentUser._id) ? isAssitant = true : isAssitant = false
+            response[1].forEach(elm => {
+                elm.isOwner = elm.author.equals(req.session.currentUser._id)
             })
-            //     if (elm.author === req.session.currentUser._id) {
-            //     return isOwner = true
-            // } else {
-            //     return isOwner = false
-            // }
-            // })
+
             res.render('event/details-event', { response, avg, producerOrAdmin: producerOrAdmin(req), isAssitant })
         })
         .catch(err => console.log('Error', err))
