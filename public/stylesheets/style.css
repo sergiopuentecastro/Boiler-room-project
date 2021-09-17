@@ -110,19 +110,20 @@ footer {
 }
 
 .card-img-top {
-  height: 500px;
-  object-fit:fill;
+  object-fit: fill;
+  height: 100px;
 }
 
 .bio-card {
-  background-color: white;
+  margin-top: 50px;
 }
 
 .img-event {
   margin-top: 50px;
   width: 100%; 
-  height: 700px;
+  height: 100px;
 }
+
 
 .assistment {
   /* background-color: blue; */
