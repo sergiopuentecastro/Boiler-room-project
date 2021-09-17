@@ -85,14 +85,9 @@
         <ul>
             {{#each response.[1]}}
             <li>
-                <div class="panel panel-default">
-                    <div class="panel-body">{{title}}</div>
-                </div>
-                <div class="panel panel-default">
-                    <div class="panel-body">{{description}}</div>
-                </div>
-
-                {{#if ../isOwner}}
+                <p>{{title}}</p>
+                <p>{{description}}</p>
+                {{#if isOwner}}
                 <a class="btn btn-dark btn-open-review edit-comment-btn">Editar reseña</a>
                 {{/if}}
                 <div class="editForm">
