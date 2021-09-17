@@ -1,3 +1,29 @@
+<div class="container">
+    <div class="row">
+        <div class="col-6 navigator">
+            <form action="/admin/users-search" method="POST">
+                <label for="userName"></label>
+                <input name="userName" type="text" class="form-control" id="userName"
+                    placeholder="Busca por nombre de usuario">
+                <button type="submit" class="btn btn-outline-dark">Buscar</button>
+            </form>
+        </div>
+        <div class="col-6 information-user">
+            <div class="card">
+                <img src="{{user.profileImage}}" class="card-img-top" alt="{{user.userName}}">
+                <div class="card-body">
+                    <h5 class="card-title">{{user.userName}}</h5>
+                    <a href="/admin/user-profile/{{user._id}}" class="btn btn-outline-primary">Ver perfil de usuario</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+
+
+{{!--
 <form action="/admin/users-search" method="POST">
     <label for="userName"></label>
     <input name="userName" type="text" class="form-control" id="userName" placeholder="Busca por nombre de usuario">
@@ -11,7 +37,7 @@
         <h5 class="card-title">{{user.userName}}</h5>
         <a href="/admin/user-profile/{{user._id}}" class="btn btn-primary">Ver perfil de usuario</a>
     </div>
-</div>
+</div> --}}
 
 
 
