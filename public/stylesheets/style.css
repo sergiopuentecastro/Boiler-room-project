@@ -147,8 +147,24 @@ footer {
   background-color: red;
 }
 
-.list-event {
+.navigator {
   margin-top: 50px;
+}
+
+.information-user {
+  margin-top: 65px;
+  width: 300px;
+  height: 300px;
+}
+
+.card-img-top {
+  height: 250px;
+}
+
+.profile-user {
+  width: 300px;
+  margin-top: 150px;
+  margin-left: 500px;
 }
 
 /* @import url('https://fonts.googleapis.com/css?family=Oswald:400,700|Raleway:300,400,700');
@@ -238,4 +254,4 @@ left:0px;
 
 #container.active > #text3{
   opacity:1;
-} */
+}  */
